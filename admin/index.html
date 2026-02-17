@@ -1,0 +1,1810 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mario Tennis Fever Community Records</title>
+
+  <!-- OGP -->
+  <meta property="og:title" content="Mario Tennis Fever Community Records">
+  <meta property="og:description" content="コミュニティ大会のレコードページ">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://963game.github.io/ランキング.html">
+
+  <!-- ★強化版 -->
+  <meta property="og:image" content="https://963game.github.io/images/ogp.png?v=1">
+  <meta property="og:image:secure_url" content="https://963game.github.io/images/ogp.png?v=1">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+
+  <meta name="twitter:card" content="summary_large_image">
+
+  <style>
+    :root{
+      --bg:#0b0e14; --line:#23304a;
+      --text:#e9eefc; --muted:#9fb0d0;
+      --accent:#b86bff; --accent2:#6ee7ff;
+      --gold:#ffd56a; --silver:#c7d2fe; --bronze:#f2b38f;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      color:var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+
+      background:
+        linear-gradient(rgba(11,14,20,0.70), rgba(11,14,20,0.78)),
+        url("https://963game.github.io/images/スクリーンショット%202026-02-14%20224903.png") center / cover no-repeat fixed,
+        radial-gradient(1200px 600px at 18% 8%, rgba(184,107,255,0.18), transparent 60%),
+        radial-gradient(1200px 600px at 82% 12%, rgba(110,231,255,0.14), transparent 55%),
+        var(--bg);
+
+      padding:18px 12px 36px;
+    }
+
+    .wrap{max-width:980px;margin:0 auto}
+    header{display:flex;justify-content:space-between;gap:12px;align-items:flex-end;flex-wrap:wrap;margin:6px 0 10px}
+    h1{margin:0;font-size:20px;letter-spacing:.3px}
+    .sub{margin:6px 0 0;color:var(--muted);font-size:12px}
+
+    .pill{
+      display:inline-flex;gap:8px;align-items:center;
+      border:1px solid rgba(184,107,255,0.35);
+      background:rgba(184,107,255,0.10);
+      padding:8px 10px;border-radius:999px;
+      font-size:12px;color:var(--muted);
+      max-width: 100%;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+    }
+    .pill b{color:var(--text)}
+
+    .tabs{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 12px}
+    .tab{
+      border:1px solid var(--line); background:rgba(18,24,38,0.65);
+      color:var(--muted); padding:10px 12px; border-radius:12px; cursor:pointer;
+      user-select:none; font-size:13px;
+    }
+    .tab.active{
+      border-color:rgba(184,107,255,0.7);
+      background:linear-gradient(180deg, rgba(184,107,255,0.20), rgba(18,24,38,0.65));
+      color:var(--text);
+    }
+
+    .card{
+      border:1px solid var(--line);
+      background:rgba(18,24,38,0.88);
+      border-radius:18px; overflow:hidden;
+      box-shadow:0 10px 40px rgba(0,0,0,.35);
+    }
+    .card.info{
+      border-color: var(--line);
+      background: rgba(18,24,38,0.88);
+    }
+
+    .card h2{
+      margin:0; padding:12px 12px 10px;
+      font-size:13px; letter-spacing:.25px;
+      border-bottom:1px solid rgba(35,48,74,0.75);
+      display:flex;justify-content:space-between;gap:10px;align-items:center;
+    }
+    .tag{
+      display:inline-flex;gap:6px;align-items:center;
+      padding:4px 8px;border-radius:999px;
+      border:1px solid rgba(159,176,208,0.25);
+      background:rgba(159,176,208,0.08);
+      color:var(--muted); font-size:12px;
+      white-space:nowrap;
+    }
+
+    table{width:100%;border-collapse:collapse;font-size:13px}
+    th,td{padding:9px 10px;border-bottom:1px solid rgba(35,48,74,0.55);text-align:left}
+    th{color:var(--muted);font-weight:600;font-size:12px}
+    tr:last-child td{border-bottom:none}
+
+    .rank{width:64px;font-variant-numeric:tabular-nums}
+    .right{text-align:right}
+    .mono{
+      font-variant-numeric:tabular-nums;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+    .muted{color:var(--muted)}
+
+.badge{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:4px 8px;
+  border-radius:999px;
+  border:1px solid rgba(159,176,208,0.25);
+  background:rgba(159,176,208,0.08);
+  font-size:12px;
+}
+
+/* 1〜3位だけ色 */
+.r1{
+  border-color: rgba(255,213,106,0.60);
+  background: rgba(255,213,106,0.12);
+}
+.r2{
+  border-color: rgba(199,210,254,0.60);
+  background: rgba(199,210,254,0.10);
+}
+.r3{
+  border-color: rgba(242,179,143,0.55);
+  background: rgba(242,179,143,0.10);
+}
+
+    .row{display:none}
+    .row.active{display:block}
+
+    .stack{display:grid;grid-template-columns:1fr;gap:12px}
+    .twoCol{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    @media (max-width:820px){ .twoCol{grid-template-columns:1fr} }
+
+    .infoBox{
+      padding:10px 12px;
+      color:var(--muted);
+      font-size:12px;
+      line-height:1.7;
+      max-height: 8.7em;
+      overflow-y: auto;
+      overflow-x: hidden;
+      scrollbar-gutter: stable;
+    }
+    .infoBox{ scrollbar-width: thin; scrollbar-color: rgba(159,176,208,0.35) transparent; }
+    .infoBox::-webkit-scrollbar{ width: 10px; }
+    .infoBox::-webkit-scrollbar-thumb{
+      background: rgba(159,176,208,0.25);
+      border-radius: 999px;
+      border: 3px solid transparent;
+      background-clip: content-box;
+    }
+
+/* 個人成績：長い一覧をスクロールできる枠（置き換え推奨） */
+.scrollBox{
+  max-height: 65vh;
+  overflow:auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-gutter: stable;
+  border-top: 1px solid rgba(35,48,74,0.55);
+}
+
+/* Firefox */
+.scrollBox{
+  scrollbar-width: thin;
+  scrollbar-color: rgba(159,176,208,0.35) transparent;
+}
+
+/* Chrome / Edge / Safari */
+.scrollBox::-webkit-scrollbar{
+  width: 8px;
+  height: 8px;
+}
+.scrollBox::-webkit-scrollbar-track{
+  background: transparent;
+}
+.scrollBox::-webkit-scrollbar-thumb{
+  background: rgba(159,176,208,0.22);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+.scrollBox::-webkit-scrollbar-thumb:hover{
+  background: rgba(159,176,208,0.35);
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+/* フェード（スクロールできる雰囲気を上品に） */
+.scrollBox{
+  position: relative;
+  mask-image: linear-gradient(to bottom, transparent 0, #000 24px, #000 calc(100% - 24px), transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 24px, #000 calc(100% - 24px), transparent 100%);
+}
+
+/* ランキング（全順位）だけ高さを小さくする */
+.rankBox{
+  max-height: 300px; /* ここだけ調整 */
+}
+
+/* スマホ：配点ピルを折り返して切れないようにする */
+@media (max-width: 520px){
+  .pill{
+    white-space: normal;     /* 1行固定を解除 */
+    overflow: visible;       /* 切り捨てない */
+    text-overflow: clip;     /* …を消す */
+    line-height: 1.25;
+  }
+}
+
+/* ===== modal 基本（プレイヤー用）===== */
+.modal{
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: grid;
+  place-items: center;
+  padding: 18px 12px;
+}
+.modal.hidden{ display:none; }
+
+.modal-overlay{
+  position:absolute;
+  inset:0;
+  background: rgba(0,0,0,.62);
+}
+
+.modal-box{
+  position: relative;
+  width: min(980px, 100%);
+  border: 1px solid var(--line);
+  background: rgba(18,24,38,0.96);
+  border-radius: 18px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.55);
+  overflow: hidden;
+}
+
+.modal-close{
+  position:absolute;
+  top: 10px;
+  right: 10px;
+  padding: 8px 10px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: rgba(18,24,38,0.65);
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.modal-head{
+  padding: 12px 12px 10px;
+  border-bottom: 1px solid rgba(35,48,74,0.75);
+}
+.modal-title{
+  margin:0;
+  font-size: 13px;
+  letter-spacing: .25px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.modal-sub{
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.modal-body{
+  padding: 10px 12px;
+  max-height: 70vh;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ===== player modal 内部 ===== */
+.section{ margin-top: 14px; }
+.section-title{ font-size: 12px; color: var(--muted); margin: 0 0 8px; }
+.list{ display: grid; gap: 8px; }
+
+.pRow{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  padding:8px 10px;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:10px;
+}
+.pRow-left{ display:flex; flex-direction:column; gap:2px; }
+.pRow-main{ font-weight:600; }
+.pRow-sub{ font-size:12px; opacity:.75; }
+
+.player-link{
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header>
+      <div>
+        <h1>Mario Tennis Fever Community Records</h1>
+        <div class="sub">フィーバー/クラシック・オンライン/オフライン混同。記録を育てるレコードページ。</div>
+      </div>
+      <div class="pill" id="pillText">配点：</div>
+    </header>
+
+    <div class="tabs" id="tabs"></div>
+
+    <!-- Singles -->
+    <section id="singles" class="row active">
+      <div class="stack">
+        <div class="card info">
+          <h2>更新情報 <span class="tag"><span style="color:var(--accent)">●</span> info</span></h2>
+          <div class="infoBox">
+            <div>最新（フィーバー）：<span id="latestSinglesFever" class="mono"></span></div>
+            <div>最新（クラシック）：<span id="latestSinglesClassic" class="mono"></span></div>
+            <div>更新：<span id="updatedAtS" class="mono"></span></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>シングルス総合（個人） <span class="tag"><span style="color:var(--accent2)">◆</span> top 8</span></h2>
+          <div style="overflow:auto">
+            <table>
+              <thead>
+                <tr><th>順位</th><th>プレイヤー</th><th class="right">合計pt</th><th class="right">優勝</th><th class="right">出場</th></tr>
+              </thead>
+              <tbody id="singlesOverall"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="twoCol" id="singlesBoards"></div>
+
+<!-- ★全ランキング（シングルス） -->
+<div class="card">
+  <h2>
+    <span>シングルス総合（全順位）</span>
+    <span style="display:flex; gap:8px; align-items:center;">
+      <span class="tag"><span style="color:var(--accent2)">◆</span> scroll</span>
+      <button id="singlesFoldBtn" type="button"
+        style="padding:6px 10px; border-radius:12px; border:1px solid var(--line);
+        background:rgba(18,24,38,0.65); color:var(--muted); cursor:pointer;">
+        開く
+      </button>
+    </span>
+  </h2>
+
+  <div id="singlesFoldBody" style="display:none;">
+    <div style="padding:10px 12px; display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+      <input id="singlesSearch" type="text" placeholder="名前検索（部分一致OK）"
+        style="flex:1; min-width:220px; padding:10px 12px; border-radius:12px; border:1px solid var(--line);
+        background:rgba(18,24,38,0.65); color:var(--text); outline:none;">
+
+      <label style="display:inline-flex; gap:6px; align-items:center; font-size:12px; color:var(--muted);">
+        <input id="singlesHideZero" type="checkbox" checked>
+        0ptを隠す
+      </label>
+
+      <button id="singlesSearchBtn" type="button"
+        style="padding:10px 12px; border-radius:12px; border:1px solid rgba(184,107,255,0.7);
+        background:linear-gradient(180deg, rgba(184,107,255,0.25), rgba(18,24,38,0.65));
+        color:var(--text); cursor:pointer;">
+        ジャンプ
+      </button>
+
+      <button id="singlesResetBtn" type="button"
+        style="padding:10px 12px; border-radius:12px; border:1px solid var(--line);
+        background:rgba(18,24,38,0.65); color:var(--muted); cursor:pointer;">
+        リセット
+      </button>
+    </div>
+
+    <div class="scrollBox rankScroll" id="singlesRankScroll">
+      <table>
+        <thead>
+          <tr><th>順位</th><th>プレイヤー</th><th class="right">合計pt</th><th class="right">優勝</th><th class="right">出場</th></tr>
+        </thead>
+        <tbody id="singlesRankAll"></tbody>
+      </table>
+      <div id="singlesRankSentinel" style="height:1px;"></div>
+    </div>
+
+    <div id="singlesRankHint" class="muted" style="padding:6px 12px; font-size:12px;"></div>
+  </div>
+</div>
+
+    </section>
+
+    <!-- Doubles -->
+    <section id="doubles" class="row">
+      <div class="stack">
+        <div class="card info">
+          <h2>更新情報 <span class="tag"><span style="color:var(--accent)">●</span> info</span></h2>
+          <div class="infoBox">
+            <div>最新（フィーバー）：<span id="latestDoublesFever" class="mono"></span></div>
+            <div>最新（クラシック）：<span id="latestDoublesClassic" class="mono"></span></div>
+            <div>更新：<span id="updatedAtD" class="mono"></span></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>ダブルス総合（個人） <span class="tag"><span style="color:var(--accent2)">◆</span> top 8</span></h2>
+          <div style="overflow:auto">
+            <table>
+              <thead>
+                <tr><th>順位</th><th>プレイヤー</th><th class="right">合計pt</th><th class="right">優勝</th><th class="right">出場</th></tr>
+              </thead>
+              <tbody id="doublesOverall"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="twoCol" id="doublesBoards"></div>
+
+<!-- ★全ランキング（ダブルス） -->
+<div class="card">
+  <h2>
+    <span>ダブルス総合（全順位）</span>
+    <span style="display:flex; gap:8px; align-items:center;">
+      <span class="tag"><span style="color:var(--accent2)">◆</span> scroll</span>
+      <button id="doublesFoldBtn" type="button"
+        style="padding:6px 10px; border-radius:12px; border:1px solid var(--line);
+        background:rgba(18,24,38,0.65); color:var(--muted); cursor:pointer;">
+        開く
+      </button>
+    </span>
+  </h2>
+
+  <div id="doublesFoldBody" style="display:none;">
+    <div style="padding:10px 12px; display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+      <input id="doublesSearch" type="text" placeholder="名前検索（部分一致OK）"
+        style="flex:1; min-width:220px; padding:10px 12px; border-radius:12px; border:1px solid var(--line);
+        background:rgba(18,24,38,0.65); color:var(--text); outline:none;">
+
+      <label style="display:inline-flex; gap:6px; align-items:center; font-size:12px; color:var(--muted);">
+        <input id="doublesHideZero" type="checkbox" checked>
+        0ptを隠す
+      </label>
+
+      <button id="doublesSearchBtn" type="button"
+        style="padding:10px 12px; border-radius:12px; border:1px solid rgba(184,107,255,0.7);
+        background:linear-gradient(180deg, rgba(184,107,255,0.25), rgba(18,24,38,0.65));
+        color:var(--text); cursor:pointer;">
+        ジャンプ
+      </button>
+
+      <button id="doublesResetBtn" type="button"
+        style="padding:10px 12px; border-radius:12px; border:1px solid var(--line);
+        background:rgba(18,24,38,0.65); color:var(--muted); cursor:pointer;">
+        リセット
+      </button>
+    </div>
+
+    <div class="scrollBox rankScroll" id="doublesRankScroll">
+      <table>
+        <thead>
+          <tr><th>順位</th><th>プレイヤー</th><th class="right">合計pt</th><th class="right">優勝</th><th class="right">出場</th></tr>
+        </thead>
+        <tbody id="doublesRankAll"></tbody>
+      </table>
+      <div id="doublesRankSentinel" style="height:1px;"></div>
+    </div>
+
+    <div id="doublesRankHint" class="muted" style="padding:6px 12px; font-size:12px;"></div>
+  </div>
+</div>
+
+    </section>
+
+    <!-- Players (個人成績) -->
+    <section id="players" class="row">
+      <div class="stack">
+        <div class="card">
+  <h2>
+    <span>ログ（全記録）</span>
+    <span style="display:flex; gap:8px; align-items:center;">
+      <span class="tag"><span style="color:var(--accent2)">◆</span> log</span>
+      <button id="playersFoldBtn" type="button"
+        style="padding:6px 10px; border-radius:12px; border:1px solid var(--line);
+        background:rgba(18,24,38,0.65); color:var(--muted); cursor:pointer;">
+        開く
+      </button>
+    </span>
+  </h2>
+
+  <!-- ★ここから折りたたみ本体 -->
+  <div id="playersFoldBody" style="display:none;">
+
+    <div style="padding:10px 12px; display:flex; gap:8px; flex-wrap:wrap; align-items:center; position:relative;">
+      <!-- フィルタ -->
+      <span class="muted" style="font-size:12px;">開始</span>
+      <input id="fDateFrom" type="date"
+        style="padding:10px 12px; border-radius:12px; border:1px solid var(--line);
+        background:rgba(18,24,38,0.65); color:var(--text); outline:none;">
+
+      <span class="muted" style="font-size:12px;">終了</span>
+      <input id="fDateTo" type="date"
+        style="padding:10px 12px; border-radius:12px; border:1px solid var(--line);
+        background:rgba(18,24,38,0.65); color:var(--text); outline:none;">
+
+      <select id="fTournament"
+        style="padding:10px 12px; border-radius:12px; border:1px solid var(--line);
+        background:rgba(18,24,38,0.65); color:var(--text); outline:none;">
+        <option value="">大会：すべて</option>
+      </select>
+
+      <select id="fType"
+        style="padding:10px 12px; border-radius:12px; border:1px solid var(--line);
+        background:rgba(18,24,38,0.65); color:var(--text); outline:none;">
+        <option value="">種別：すべて</option>
+        <option value="singles">シングル</option>
+        <option value="doubles">ダブル</option>
+      </select>
+
+      <select id="fMode"
+        style="padding:10px 12px; border-radius:12px; border:1px solid var(--line);
+        background:rgba(18,24,38,0.65); color:var(--text); outline:none;">
+        <option value="">モード：すべて</option>
+        <option value="fever">フィーバー</option>
+        <option value="classic">クラシック</option>
+      </select>
+
+      <!-- 検索（単語1つ、候補表示） -->
+      <div style="flex:1; min-width:240px; position:relative;">
+        <input id="playerQuery" type="text" placeholder="検索（プレイヤー名 / 大会名）"
+          style="width:100%; padding:10px 12px; border-radius:12px; border:1px solid var(--line);
+          background:rgba(18,24,38,0.65); color:var(--text); outline:none;">
+
+        <!-- ★候補 -->
+        <div id="suggestBox" style="display:none; position:absolute; z-index:10; left:0; right:0; top:calc(100% + 6px);
+          border:1px solid var(--line); background:rgba(18,24,38,0.98); border-radius:12px; overflow:hidden;
+          box-shadow:0 14px 40px rgba(0,0,0,.45);">
+          <div id="suggestList"></div>
+        </div>
+      </div>
+
+      <button id="playerClearBtn" type="button"
+        style="padding:10px 12px; border-radius:12px; border:1px solid var(--line);
+        background:rgba(18,24,38,0.65); color:var(--muted); cursor:pointer;">
+        リセット
+      </button>
+    </div>
+
+    <div id="playersHint" class="muted" style="padding:0 12px 8px; font-size:12px;"></div>
+
+    <div class="scrollBox">
+      <table>
+        <thead>
+          <tr>
+            <th>日付</th>
+            <th>大会</th>
+            <th>種別</th>
+            <th>モード</th>
+            <th>順位</th>
+            <th>相方</th>
+            <th class="right">pt</th>
+            <th>プレイヤー</th>
+          </tr>
+        </thead>
+        <tbody id="playersAll">
+          <tr><td colspan="8" class="muted">読み込み中…</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="padding:4px 8px; font-size:10.5px; opacity:.55; letter-spacing:.2px;" class="muted">
+      ※一覧が長い場合はスクロールできます
+    </div>
+
+  </div>
+  <!-- ★ここまで折りたたみ本体 -->
+</div>
+
+    </section>
+
+<!-- Tournaments -->
+<section id="tournaments" class="row">
+  <div class="stack">
+
+    <div class="card">
+      <h2>大会一覧 <span class="tag"><span style="color:var(--accent2)">◆</span> events</span></h2>
+
+      <div style="padding:10px 12px; display:flex; gap:8px; flex-wrap:wrap;">
+
+        <input id="tourSearch" type="text" placeholder="大会名検索"
+          style="flex:1; min-width:220px; padding:10px 12px; border-radius:12px;
+          border:1px solid var(--line); background:rgba(18,24,38,0.65); color:var(--text);">
+
+        <select id="tourType"
+          style="padding:10px 12px; border-radius:12px; border:1px solid var(--line);
+          background:rgba(18,24,38,0.65); color:var(--text);">
+          <option value="">種別：すべて</option>
+          <option value="singles">シングル</option>
+          <option value="doubles">ダブル</option>
+        </select>
+
+        <select id="tourMode"
+          style="padding:10px 12px; border-radius:12px; border:1px solid var(--line);
+          background:rgba(18,24,38,0.65); color:var(--text);">
+          <option value="">モード：すべて</option>
+          <option value="fever">フィーバー</option>
+          <option value="classic">クラシック</option>
+        </select>
+
+      </div>
+
+      <div class="scrollBox" style="max-height:60vh;">
+        <table>
+          <thead>
+            <tr>
+              <th>日付</th>
+              <th>大会</th>
+              <th>種別</th>
+              <th>モード</th>
+            </tr>
+          </thead>
+          <tbody id="tourList"></tbody>
+        </table>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+  </div>
+
+  <script>
+    // ===== 配点（固定）=====
+    const singlesPoints = {1:20,2:16,3:12,4:10,5:8,6:6,7:4,8:2};
+    const doublesTeamPoints = {...singlesPoints};
+    const doublesPerPerson = (rank)=> (doublesTeamPoints[rank] ?? 0) / 2;
+
+    // ★ここにスプシCSV URL（あなたのを入れてOK）
+    const SPREADSHEET_CSV_URL =
+      "https://docs.google.com/spreadsheets/d/e/2PACX-1vSydZeRcqGb_J3B1GadvScM6gRdCbxaQc0C4WC2vEasXU-ov21qtl2E4ae6icxrtqMdFtPZlZlTW-6s/pub?gid=0&single=true&output=csv";
+
+    // ★eventsは“最初は空” → 読み込んで入れる
+    let events = [];
+
+    const $ = (s)=>document.querySelector(s);
+
+const tabs = [
+  {key:"singles", label:"シングルス"},
+  {key:"doubles", label:"ダブルス"},
+  {key:"players", label:"ログ"},
+  {key:"tournaments", label:"大会"},
+];
+
+    function setActiveTab(key){
+      tabs.forEach(t=>{
+        $("#tab_"+t.key).classList.toggle("active", t.key===key);
+        $("#"+t.key).classList.toggle("active", t.key===key);
+      });
+      updatePill(key);
+    }
+
+    function badgeClass(rank){
+      if(rank===1) return "badge r1";
+      if(rank===2) return "badge r2";
+      if(rank===3) return "badge r3";
+      return "badge";
+    }
+
+function pointsLabel(){
+  return "1:20 2:16 3:12 4:10 5:8 6:6 7:4 8:2";
+}
+
+// splitExamplesはもう使わないから消してOK（残してもOK）
+
+function updatePill(activeKey){
+  const pill = $("#pillText");
+
+  if(activeKey==="doubles"){
+    pill.textContent = "配点：1:20 2:16 3:12 4:10 5:8 6:6 7:4 8:2 ｜ D=半分";
+    pill.title = "ダブルスはチームptを2人で等分（例：1位20→10+10）";
+  }else{
+    pill.textContent = "配点：1:20 2:16 3:12 4:10 5:8 6:6 7:4 8:2";
+    pill.title = "シングルス配点";
+  }
+}
+
+    // 同ポイントなら同順位（1,1,3…）
+    function addTiedRanks(rows){
+      let rank = 0;
+      let shown = 0;
+      let prevPt = null;
+      return rows.map(r=>{
+        shown += 1;
+        if(prevPt === null || r.pt !== prevPt){
+          rank = shown;
+          prevPt = r.pt;
+        }
+        return {...r, rank};
+      });
+    }
+
+    // 最新大会（type+mode）
+    function latestEvent(type, mode){
+      const list = events
+        .filter(e=>e.type===type && e.mode===mode)
+        .sort((a,b)=> (a.date < b.date ? 1 : -1));
+      return list[0] ?? null;
+    }
+
+    function podiumText(type, mode){
+      const e = latestEvent(type, mode);
+      if(!e) return "—";
+
+      const nameAtRank = (rank)=>{
+        const r = (e.results || []).find(x => x.rank === rank);
+        if(!r) return "—";
+        if(type==="singles") return r.player;
+        return `${r.p1}/${r.p2}`;
+      };
+
+      return `${e.date}　${e.tournament}　1位 ${nameAtRank(1)}　2位 ${nameAtRank(2)}　3位 ${nameAtRank(3)}`;
+    }
+
+function formatNameForEvent(e, r){
+  if(!r) return "—";
+  if(e.type === "singles") return r.player || "—";
+  return `${r.p1 || "—"}/${r.p2 || "—"}`;
+}
+
+function getEventSummary(e){
+  const results = (e.results || []);
+
+  // 参加人数（シングル=人数、ダブル=チーム数）
+  const participants = results.length;
+
+  // 優勝者（rank===1）
+  const winRow = results.find(x => x.rank === 1);
+  const winner = formatNameForEvent(e, winRow);
+
+  // 0pt扱い（順位0を想定）※あなたの「参加回数だけ残す」運用に対応
+  const zeroCount = results.filter(x => x.rank === 0).length;
+
+  // 表示用テキスト
+  const unit = (e.type === "singles") ? "人" : "組";
+  return {
+    participants,
+    participantsText: `${participants}${unit}`,
+    winner,
+    zeroCount,
+    zeroText: `${zeroCount}${unit}`,
+  };
+}
+
+    // 総合
+    function computeStats(type){
+      const map = new Map();
+      const add = (name, pt, isWin)=>{
+        if(!name) return;
+        const v = map.get(name) ?? {pt:0,wins:0,plays:0};
+        v.pt += pt;
+        v.plays += 1;
+        if(isWin) v.wins += 1;
+        map.set(name, v);
+      };
+
+      events.filter(e=>e.type===type).forEach(e=>{
+        if(type==="singles"){
+          e.results.forEach(r=> add(r.player, singlesPoints[r.rank] ?? 0, r.rank===1));
+        }else{
+          e.results.forEach(r=>{
+            const ptEach = doublesPerPerson(r.rank);
+            add(r.p1, ptEach, r.rank===1);
+            add(r.p2, ptEach, r.rank===1);
+          });
+        }
+      });
+
+      return Array.from(map.entries())
+        .map(([name,v])=>({name, ...v}))
+        .sort((a,b)=> b.pt-a.pt || b.wins-a.wins || b.plays-a.plays || a.name.localeCompare(b.name,"ja"));
+    }
+
+    // モード別
+    function computeModeStats(type, mode){
+      const map = new Map();
+      const add = (name, pt, isWin)=>{
+        if(!name) return;
+        const v = map.get(name) ?? {pt:0,wins:0,plays:0};
+        v.pt += pt;
+        v.plays += 1;
+        if(isWin) v.wins += 1;
+        map.set(name, v);
+      };
+
+      events.filter(e=>e.type===type && e.mode===mode).forEach(e=>{
+        if(type==="singles"){
+          e.results.forEach(r=> add(r.player, singlesPoints[r.rank] ?? 0, r.rank===1));
+        }else{
+          e.results.forEach(r=>{
+            const ptEach = doublesPerPerson(r.rank);
+            add(r.p1, ptEach, r.rank===1);
+            add(r.p2, ptEach, r.rank===1);
+          });
+        }
+      });
+
+      return Array.from(map.entries())
+        .map(([name,v])=>({name, ...v}))
+        .sort((a,b)=> b.pt-a.pt || b.wins-a.wins || b.plays-a.plays || a.name.localeCompare(b.name,"ja"));
+    }
+
+    // ★総合テーブルは上位8人だけにする
+    function renderOverall(tbodyId, rows){
+      const tb = document.getElementById(tbodyId);
+      tb.innerHTML = "";
+      if(rows.length===0){
+        tb.innerHTML = `<tr><td colspan="5" class="muted">まだデータがありません</td></tr>`;
+        return;
+      }
+      const top8 = rows.slice(0,8);
+      addTiedRanks(top8).forEach(r=>{
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td class="mono">${r.rank}</td>
+          <td><span class="player-link" data-player="${escapeHtml(r.name)}">${escapeHtml(r.name)}</span></td>
+          <td class="right mono">${r.pt}</td>
+          <td class="right mono">${r.wins}</td>
+          <td class="right mono">${r.plays}</td>`;
+        tb.appendChild(tr);
+      });
+    }
+
+    function renderModeCard(targetId, title, rows){
+      const wrap = document.createElement("div");
+      wrap.className = "card";
+
+      const h2 = document.createElement("h2");
+      const left = document.createElement("span");
+      left.textContent = title;
+      const right = document.createElement("span");
+      right.className = "tag";
+      right.innerHTML = `<span style="color:var(--accent2)">◆</span> best`;
+      h2.appendChild(left);
+      h2.appendChild(right);
+
+      const content = document.createElement("div");
+      content.style.overflow = "auto";
+
+      const table = document.createElement("table");
+      table.innerHTML = `
+        <thead>
+          <tr>
+            <th class="rank">順位</th>
+            <th>プレイヤー</th>
+            <th class="right">pt</th>
+            <th class="right">優勝</th>
+            <th class="right">出場</th>
+          </tr>
+        </thead>
+        <tbody></tbody>`;
+      const tb = table.querySelector("tbody");
+
+      const top = rows.slice(0,8);
+      if(top.length===0){
+        tb.innerHTML = `<tr><td colspan="5" class="muted">まだ記録がありません</td></tr>`;
+      }else{
+        addTiedRanks(top).forEach(r=>{
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td class="rank"><span class="${badgeClass(r.rank)}"><span class="mono">#${r.rank}</span></span></td>
+            <td><span class="player-link" data-player="${escapeHtml(r.name)}">${escapeHtml(r.name)}</span></td>
+            <td class="right mono">${r.pt}</td>
+            <td class="right mono">${r.wins}</td>
+            <td class="right mono">${r.plays}</td>`;
+          tb.appendChild(tr);
+        });
+      }
+
+      content.appendChild(table);
+      wrap.appendChild(h2);
+      wrap.appendChild(content);
+      document.getElementById(targetId).appendChild(wrap);
+    }
+
+    // CSV読み込み → events化
+    async function loadEventsFromSheet(){
+      const url = SPREADSHEET_CSV_URL + (SPREADSHEET_CSV_URL.includes("?") ? "&" : "?") + "v=" + Date.now();
+      const res = await fetch(url);
+      if(!res.ok) throw new Error("CSV fetch failed: " + res.status);
+
+      const csv = await res.text();
+      const rows = parseCSV(csv);
+
+      const data = rows.slice(1)
+        .map(r => ({
+          date: (r[0] || "").trim(),
+          tournament: (r[1] || "").trim(),
+          type: (r[2] || "").trim(),
+          mode: (r[3] || "").trim(),
+          note: (r[4] || "").trim(),
+          format: (r[5] || "").trim(),      // ★追加（F列）
+          rank: Number((r[6] || "").trim()),// ★G列
+          p1: (r[7] || "").trim(),          // ★H列
+          p2: (r[8] || "").trim(),          // ★I列
+        }))
+        .filter(r =>
+          r.date && r.tournament &&
+          (r.type==="singles" || r.type==="doubles") &&
+          (r.mode==="fever" || r.mode==="classic") &&
+          Number.isFinite(r.rank)
+        );
+
+      const map = new Map();
+      for(const r of data){
+        const key = [r.date, r.tournament, r.type, r.mode, r.note, r.format].join("||");
+        if(!map.has(key)){
+          map.set(key, {date:r.date, tournament:r.tournament, type:r.type, mode:r.mode, note:r.note, format:r.format, results:[]});
+        }
+        const e = map.get(key);
+        if(r.type==="singles"){
+          if(r.p1) e.results.push({rank:r.rank, player:r.p1});
+        }else{
+          if(r.p1 && r.p2) e.results.push({rank:r.rank, p1:r.p1, p2:r.p2});
+        }
+      }
+
+      const ev = Array.from(map.values());
+      ev.forEach(e => e.results.sort((a,b)=>a.rank-b.rank));
+      ev.sort((a,b)=> (a.date < b.date ? 1 : -1)); // 新しい日付が先
+      return ev;
+    }
+
+    function parseCSV(text){
+      const out = [];
+      let row = [];
+      let cur = "";
+      let inQ = false;
+
+      for(let i=0;i<text.length;i++){
+        const c = text[i];
+        const n = text[i+1];
+
+        if(inQ){
+          if(c === '"' && n === '"'){ cur += '"'; i++; }
+          else if(c === '"'){ inQ = false; }
+          else { cur += c; }
+        }else{
+          if(c === '"'){ inQ = true; }
+          else if(c === ","){ row.push(cur); cur = ""; }
+          else if(c === "\n"){
+            row.push(cur); out.push(row);
+            row = []; cur = "";
+          }else if(c === "\r"){
+          }else{
+            cur += c;
+          }
+        }
+      }
+      if(cur.length || row.length){ row.push(cur); out.push(row); }
+      return out;
+    }
+
+// ===== 個人成績（全員一覧） =====
+function normalizeText(s){
+  return (s || "").trim().toLowerCase();
+}
+
+    function pointsForResult(type, rank){
+      if(type === "singles") return singlesPoints[rank] ?? 0;
+      return doublesPerPerson(rank);
+    }
+
+    function getAllPlayerRows(){
+      const out = [];
+      for(const e of events){
+        for(const r of (e.results || [])){
+          if(e.type === "singles"){
+            out.push({
+              date: e.date,
+              tournament: e.tournament,
+              type: "singles",
+              mode: e.mode,
+              rank: r.rank,
+              partner: "",
+              pt: pointsForResult("singles", r.rank),
+              player: r.player || "",
+            });
+          }else{
+            out.push({
+              date: e.date,
+              tournament: e.tournament,
+              type: "doubles",
+              mode: e.mode,
+              rank: r.rank,
+              partner: r.p2 || "",
+              pt: pointsForResult("doubles", r.rank),
+              player: r.p1 || "",
+            });
+            out.push({
+              date: e.date,
+              tournament: e.tournament,
+              type: "doubles",
+              mode: e.mode,
+              rank: r.rank,
+              partner: r.p1 || "",
+              pt: pointsForResult("doubles", r.rank),
+              player: r.p2 || "",
+            });
+          }
+        }
+      }
+
+      // 新しい順（同日なら大会名→順位→名前）
+      out.sort((a,b)=>
+        (a.date < b.date ? 1 : a.date > b.date ? -1 :
+        a.tournament.localeCompare(b.tournament,"ja") ||
+        a.rank - b.rank ||
+        a.player.localeCompare(b.player,"ja"))
+      );
+      return out;
+    }
+
+    function renderPlayersAll(rows){
+      const tb = document.getElementById("playersAll");
+      if(!tb) return;
+
+      tb.innerHTML = "";
+      if(rows.length === 0){
+        tb.innerHTML = `<tr><td colspan="8" class="muted">該当なし</td></tr>`;
+        return;
+      }
+
+      rows.forEach(x=>{
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td class="mono">${x.date}</td>
+          <td>${x.tournament}</td>
+          <td>${x.type === "singles" ? "シングル" : "ダブル"}</td>
+          <td>${x.mode === "fever" ? "フィーバー" : "クラシック"}</td>
+          <td class="mono">${x.rank}</td>
+          <td>${x.partner || "—"}</td>
+          <td class="right mono">${x.pt}</td>
+          <td>${x.player ? `<span class="player-link" data-player="${escapeHtml(x.player)}">${escapeHtml(x.player)}</span>` : "—"}</td>
+        `;
+        tb.appendChild(tr);
+      });
+    }
+
+function setupPlayersTab(){
+  const input = document.getElementById("playerQuery");
+  const clr = document.getElementById("playerClearBtn");
+
+  const fFrom = document.getElementById("fDateFrom");
+  const fTo = document.getElementById("fDateTo");
+  const fTour = document.getElementById("fTournament");
+  const fType = document.getElementById("fType");
+  const fMode = document.getElementById("fMode");
+
+  const hint = document.getElementById("playersHint");
+
+  const suggestBox = document.getElementById("suggestBox");
+  const suggestList = document.getElementById("suggestList");
+
+  if(!input || !clr || !fFrom || !fTo || !fTour || !fType || !fMode || !hint || !suggestBox || !suggestList) return;
+
+  const allRows = getAllPlayerRows();
+
+  // 大会候補をselectへ
+  const tourSet = new Set(allRows.map(r=>r.tournament).filter(Boolean));
+  const tours = Array.from(tourSet).sort((a,b)=>a.localeCompare(b,"ja"));
+  tours.forEach(t=>{
+    const opt = document.createElement("option");
+    opt.value = t;
+    opt.textContent = t;
+    fTour.appendChild(opt);
+  });
+
+  // サジェスト候補（プレイヤー＋大会）
+  const names = Array.from(new Set(allRows.map(r=>r.player).filter(Boolean)));
+  const suggestPool = Array.from(new Set([...names, ...tours]))
+    .sort((a,b)=>a.localeCompare(b,"ja"));
+
+  const inRange = (d, from, to)=>{
+    if(from && d < from) return false;
+    if(to && d > to) return false;
+    return true;
+  };
+
+  const apply = ()=>{
+    const q = normalizeText(input.value);
+    const from = fFrom.value || "";
+    const to = fTo.value || "";
+    const tour = fTour.value || "";
+    const type = fType.value || "";
+    const mode = fMode.value || "";
+
+    const filtered = allRows.filter(r=>{
+      if(!inRange(r.date, from, to)) return false;
+      if(tour && r.tournament !== tour) return false;
+      if(type && r.type !== type) return false;
+      if(mode && r.mode !== mode) return false;
+
+      if(q){
+        const p = normalizeText(r.player);
+        const t = normalizeText(r.tournament);
+        if(!p.includes(q) && !t.includes(q)) return false;
+      }
+      return true;
+    });
+
+    renderPlayersAll(filtered);
+
+    if(filtered.length === 0){
+      hint.textContent = "0件です。条件を減らすかリセットしてね。";
+    }else{
+      hint.textContent = `${filtered.length}件`;
+    }
+  };
+
+  const hideSuggest = ()=>{ suggestBox.style.display = "none"; };
+
+  const buildSuggest = ()=>{
+    const q = normalizeText(input.value);
+    if(!q){
+      hideSuggest();
+      return;
+    }
+
+    const list = suggestPool.filter(s => normalizeText(s).includes(q)).slice(0,10);
+    if(list.length === 0){
+      hideSuggest();
+      return;
+    }
+
+    suggestList.innerHTML = "";
+    list.forEach(txt=>{
+      const item = document.createElement("div");
+      item.textContent = txt;
+      item.style.padding = "10px 12px";
+      item.style.cursor = "pointer";
+      item.onmouseenter = ()=> item.style.background = "rgba(110,231,255,0.08)";
+      item.onmouseleave = ()=> item.style.background = "transparent";
+      item.onclick = ()=>{
+        input.value = txt;
+        hideSuggest();
+        apply();
+      };
+      suggestList.appendChild(item);
+    });
+
+    suggestBox.style.display = "block";
+  };
+
+  renderPlayersAll(allRows);
+  hint.textContent = `${allRows.length}件`;
+
+  input.addEventListener("input", ()=>{
+    buildSuggest();
+    apply();
+  });
+
+  [fFrom, fTo, fTour, fType, fMode].forEach(el=>{
+    el.addEventListener("change", ()=>apply());
+  });
+
+  document.addEventListener("click", (e)=>{
+    if(!suggestBox.contains(e.target) && !input.contains(e.target)){
+      hideSuggest();
+    }
+  });
+
+  clr.addEventListener("click", (e)=>{
+    e.preventDefault();
+    fFrom.value = "";
+    fTo.value = "";
+    fTour.value = "";
+    fType.value = "";
+    fMode.value = "";
+    input.value = "";
+    hideSuggest();
+    renderPlayersAll(allRows);
+    hint.textContent = `${allRows.length}件`;
+  });
+}
+
+    // 画面描画
+    function init(){
+      // tabs
+      const tabsWrap = $("#tabs");
+      tabsWrap.innerHTML = "";
+      tabs.forEach(t=>{
+        const el = document.createElement("div");
+        el.className = "tab" + (t.key==="singles" ? " active" : "");
+        el.id = "tab_"+t.key;
+        el.textContent = t.label;
+        el.onclick = ()=>setActiveTab(t.key);
+        tabsWrap.appendChild(el);
+      });
+
+      // pill
+      updatePill("singles");
+
+      // updated
+      const now = new Date().toISOString().slice(0,19).replace("T"," ");
+      $("#updatedAtS").textContent = now;
+      $("#updatedAtD").textContent = now;
+
+      // latest
+      $("#latestSinglesFever").textContent   = podiumText("singles","fever");
+      $("#latestSinglesClassic").textContent = podiumText("singles","classic");
+      $("#latestDoublesFever").textContent   = podiumText("doubles","fever");
+      $("#latestDoublesClassic").textContent = podiumText("doubles","classic");
+
+      // overall（★上位8に制限）
+      renderOverall("singlesOverall", computeStats("singles"));
+      renderOverall("doublesOverall", computeStats("doubles"));
+
+      // mode boards（元から上位8）
+      $("#singlesBoards").innerHTML = "";
+      $("#doublesBoards").innerHTML = "";
+
+      renderModeCard("singlesBoards", "フィーバー｜シングルス（累計上位）", computeModeStats("singles","fever"));
+      renderModeCard("singlesBoards", "クラシック｜シングルス（累計上位）", computeModeStats("singles","classic"));
+
+      renderModeCard("doublesBoards", "フィーバー｜ダブルス（個人累計上位）", computeModeStats("doubles","fever"));
+      renderModeCard("doublesBoards", "クラシック｜ダブルス（個人累計上位）", computeModeStats("doubles","classic"));
+
+      // players tab
+      setupPlayersTab();
+      setupPlayersFold();
+
+
+setupRankList("singles");
+setupRankList("doubles");
+
+setupFold("singles");
+setupFold("doubles");
+
+setupTournamentsTab();
+renderTournaments();
+
+    }
+
+// ===== 全ランキング（無限スクロール + 検索ジャンプ） =====
+
+function renderRankingChunk(tbody, rows, start, end){
+  const frag = document.createDocumentFragment();
+  for(let i=start; i<end; i++){
+    const r = rows[i];
+    const tr = document.createElement("tr");
+    tr.dataset.idx = String(i);
+    tr.innerHTML = `
+      <td class="mono">${r.rank}</td>
+      <td><span class="player-link" data-player="${escapeHtml(r.name)}">${escapeHtml(r.name)}</span></td>
+      <td class="right mono">${r.pt}</td>
+      <td class="right mono">${r.wins}</td>
+      <td class="right mono">${r.plays}</td>`;
+    frag.appendChild(tr);
+  }
+  tbody.appendChild(frag);
+}
+
+function setupRankList(type){
+  const tb = document.getElementById(type==="singles" ? "singlesRankAll" : "doublesRankAll");
+  const sentinel = document.getElementById(type==="singles" ? "singlesRankSentinel" : "doublesRankSentinel");
+  const hint = document.getElementById(type==="singles" ? "singlesRankHint" : "doublesRankHint");
+
+  const input = document.getElementById(type==="singles" ? "singlesSearch" : "doublesSearch");
+  const btn   = document.getElementById(type==="singles" ? "singlesSearchBtn" : "doublesSearchBtn");
+  const reset = document.getElementById(type==="singles" ? "singlesResetBtn" : "doublesResetBtn");
+
+  const hideZero = document.getElementById(type==="singles" ? "singlesHideZero" : "doublesHideZero");
+
+  const rootEl = document.getElementById(type==="singles" ? "singlesRankScroll" : "doublesRankScroll");
+
+  if(!tb || !sentinel || !input || !btn || !reset || !rootEl) return;
+
+  let io = null;
+  let rows = [];
+  let visible = 0;
+  const step = 8; // ←最初に見せる行数（8行くらい）
+
+  const ensureVisible = (count)=>{
+    const next = Math.min(count, rows.length);
+    if(next <= visible) return;
+    renderRankingChunk(tb, rows, visible, next);
+    visible = next;
+    if(hint) hint.textContent = `表示：${visible}/${rows.length}`;
+  };
+
+  const rebuild = ()=>{
+    if(io) io.disconnect();
+
+    // ①作り直し：0ptを隠す
+    let rowsRaw = computeStats(type);
+    if(hideZero && hideZero.checked){
+      rowsRaw = rowsRaw.filter(r => (r.pt ?? 0) > 0);
+    }
+
+    rows = addTiedRanks(rowsRaw);
+
+    tb.innerHTML = "";
+    visible = 0;
+    ensureVisible(step);
+
+    io = new IntersectionObserver((ents)=>{
+      for(const e of ents){
+        if(e.isIntersecting){
+          ensureVisible(visible + step);
+        }
+      }
+    }, {root: rootEl});
+
+    io.observe(sentinel);
+  };
+
+  rebuild();
+
+  if(hideZero){
+    hideZero.addEventListener("change", ()=> rebuild());
+  }
+
+  const jump = ()=>{
+    const q = normalizeText(input.value);
+    if(!q) return;
+
+    const idx = rows.findIndex(r => normalizeText(r.name).includes(q));
+    if(idx < 0){
+      if(hint) hint.textContent = `「${input.value}」は見つからない`;
+      return;
+    }
+
+    ensureVisible(idx + 1);
+
+    const tr = tb.querySelector(`tr[data-idx="${idx}"]`);
+    if(tr){
+      tr.scrollIntoView({behavior:"smooth", block:"center"});
+      tr.style.background = "rgba(184,107,255,0.2)";
+      setTimeout(()=> tr.style.background = "transparent", 900);
+      if(hint) hint.textContent = `#${rows[idx].rank} ${rows[idx].name}`;
+    }
+  };
+
+  btn.onclick = jump;
+  input.addEventListener("keydown", e=>{
+    if(e.key==="Enter") jump();
+  });
+
+  reset.onclick = ()=>{
+    input.value = "";
+    rootEl.scrollTo({top:0, behavior:"smooth"});
+  };
+}
+
+function setupFold(type){
+  const btn  = document.getElementById(type==="singles" ? "singlesFoldBtn" : "doublesFoldBtn");
+  const body = document.getElementById(type==="singles" ? "singlesFoldBody" : "doublesFoldBody");
+  if(!btn || !body) return;
+
+  btn.addEventListener("click", ()=>{
+    const open = body.style.display !== "none";
+    body.style.display = open ? "none" : "block";
+    btn.textContent = open ? "開く" : "閉じる";
+  });
+}
+
+function setupPlayersFold(){
+  const btn  = document.getElementById("playersFoldBtn");
+  const body = document.getElementById("playersFoldBody");
+  if(!btn || !body) return;
+
+  btn.addEventListener("click", ()=>{
+    const open = body.style.display !== "none";
+    body.style.display = open ? "none" : "block";
+    btn.textContent = open ? "開く" : "閉じる";
+  });
+}
+
+// ===== 大会タブ（一覧 + クリックで詳細モーダル） =====
+
+function eventKey(e){
+  return [e.date, e.tournament, e.type, e.mode, e.note].join("||");
+}
+
+function formatType(type){
+  return type==="singles" ? "シングル" : "ダブル";
+}
+function formatMode(mode){
+  return mode==="fever" ? "フィーバー" : "クラシック";
+}
+
+function getFilteredEvents(){
+  const q = normalizeText(document.getElementById("tourSearch")?.value || "");
+  const t = (document.getElementById("tourType")?.value || "");
+  const m = (document.getElementById("tourMode")?.value || "");
+
+  return (events || []).filter(e=>{
+    if(t && e.type !== t) return false;
+    if(m && e.mode !== m) return false;
+    if(q){
+      const name = normalizeText(e.tournament);
+      const note = normalizeText(e.note);
+      if(!name.includes(q) && !note.includes(q)) return false;
+    }
+    return true;
+  }).sort((a,b)=> (a.date < b.date ? 1 : -1));
+}
+
+function renderTournaments(){
+  const tb = document.getElementById("tourList");
+  if(!tb) return;
+
+  const list = getFilteredEvents();
+  tb.innerHTML = "";
+
+  if(list.length === 0){
+    tb.innerHTML = `<tr><td colspan="4" class="muted">該当なし</td></tr>`;
+    return;
+  }
+
+  list.forEach(e=>{
+    const tr = document.createElement("tr");
+    tr.style.cursor = "pointer";
+    tr.dataset.key = eventKey(e);
+    tr.innerHTML = `
+      <td class="mono">${e.date}</td>
+      <td>${e.tournament}${e.note ? `<span class="muted">（${e.note}）</span>` : ""}</td>
+      <td>${formatType(e.type)}</td>
+      <td>${formatMode(e.mode)}</td>
+    `;
+    tr.onclick = ()=> openTournamentModal(e);
+    tb.appendChild(tr);
+  });
+}
+
+function openTournamentModal(e){
+  const modal = document.getElementById("tourModal");
+  const closeBtn = document.getElementById("tourModalClose");
+  const title = document.getElementById("tourModalTitle");
+  const sub = document.getElementById("tourModalSub");
+  const body = document.getElementById("tourModalBody");
+
+  if(!modal || !closeBtn || !title || !sub || !body) return;
+
+title.textContent = `${e.tournament}${e.note ? `（${e.note}）` : ""}`;
+
+// ① 先に summary を作る（参加/優勝/0pt数）
+const sum = getEventSummary(e);
+const zeroNote = sum.zeroCount > 0 ? ` / 0pt:${sum.zeroText}` : "";
+
+// ② format 表示
+const fmt =
+  e.format === "rr" ? "総当たり" :
+  e.format === "tn" ? "トナメ" :
+  (e.format || "—");
+
+// ③ sub は1回だけ設定（ここがポイント）
+sub.textContent =
+  `${e.date} / ${formatType(e.type)} / ${formatMode(e.mode)} / 形式:${fmt}` +
+  ` / 参加:${sum.participantsText} / 優勝:${sum.winner}${zeroNote}`;
+
+  body.innerHTML = "";
+
+const hideZero = document.getElementById("tourHideZero");
+const raw = (e.results || []).slice().sort((a,b)=>a.rank-b.rank);
+
+const getPt = (r)=>{
+  if(e.type === "singles") return singlesPoints[r.rank] ?? 0;
+  return doublesPerPerson(r.rank) ?? 0;
+};
+
+const pick = ()=> {
+  const hz = hideZero ? hideZero.checked : true;
+  return hz ? raw.filter(x => getPt(x) > 0) : raw;   // ★pt=0 を隠す
+};
+
+const renderBody = ()=>{
+  body.innerHTML = "";
+  const results = pick();
+
+  if(results.length === 0){
+    body.innerHTML = `<tr><td colspan="4" class="muted">結果なし</td></tr>`;
+    return;
+  }
+
+  results.forEach(r=>{
+    const tr = document.createElement("tr");
+
+    if(e.type === "singles"){
+      const pt = singlesPoints[r.rank] ?? 0;
+      tr.innerHTML = `
+        <td class="mono">${r.rank}</td>
+        <td>${r.player || "—"}</td>
+        <td class="right mono">${pt}</td>
+        <td class="muted">—</td>
+      `;
+
+}else{
+  const teamPt = doublesTeamPoints[r.rank] ?? 0;
+
+  tr.innerHTML = `
+    <td class="mono">${r.rank}</td>
+    <td colspan="2">${(r.p1||"—")} / ${(r.p2||"—")}</td>
+    <td class="right mono">${teamPt}</td>
+  `;
+}
+
+    body.appendChild(tr);
+  });
+};
+
+renderBody();
+if(hideZero){
+  hideZero.onchange = ()=> renderBody();
+}
+
+  const close = ()=>{
+    modal.style.display = "none";
+    document.removeEventListener("keydown", onKey);
+  };
+  const onKey = (ev)=>{ if(ev.key === "Escape") close(); };
+
+  closeBtn.onclick = close;
+  modal.onclick = (ev)=>{ if(ev.target === modal) close(); };
+  document.addEventListener("keydown", onKey);
+
+  modal.style.display = "block";
+}
+
+function setupTournamentsTab(){
+  const s = document.getElementById("tourSearch");
+  const t = document.getElementById("tourType");
+  const m = document.getElementById("tourMode");
+  if(s) s.addEventListener("input", ()=> renderTournaments());
+  if(t) t.addEventListener("change", ()=> renderTournaments());
+  if(m) m.addEventListener("change", ()=> renderTournaments());
+}
+
+// ===== Player Modal (index) =====
+let playerIndex = {};
+
+function escapeHtml(str){
+  return String(str)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+
+function buildPlayerIndexFromEvents(events){
+  const index = {};
+
+  for(const e of (events || [])){
+    for(const r of (e.results || [])){
+      const rank = Number(r.rank ?? 0);
+      const pt = pointsForResult(e.type, rank);
+
+      if(e.type === "singles"){
+        const name = (r.player || "").trim();
+        if(!name) continue;
+
+        (index[name] ||= []).push({
+          date: e.date, tournament: e.tournament, type: e.type, mode: e.mode,
+          format: e.format || "", rank, pt, partner: null
+        });
+
+      }else{
+        const p1 = (r.p1 || "").trim();
+        const p2 = (r.p2 || "").trim();
+        if(!p1 || !p2) continue;
+
+        (index[p1] ||= []).push({
+          date: e.date, tournament: e.tournament, type: e.type, mode: e.mode,
+          format: e.format || "", rank, pt, partner: p2
+        });
+        (index[p2] ||= []).push({
+          date: e.date, tournament: e.tournament, type: e.type, mode: e.mode,
+          format: e.format || "", rank, pt, partner: p1
+        });
+      }
+    }
+  }
+
+  // 新しい順
+  for(const name in index){
+    index[name].sort((a,b)=> (b.date||"").localeCompare(a.date||""));
+  }
+  return index;
+}
+
+function renderEntryRow(x){
+  const typeJ = x.type==="singles" ? "シングル" : "ダブル";
+  const modeJ = x.mode==="fever" ? "フィーバー" : "クラシック";
+  const fmtJ =
+    x.format==="rr" ? "総当たり" :
+    x.format==="tn" ? "トナメ" :
+    (x.format || "—");
+
+  const sub = `${x.date} / ${typeJ} / ${modeJ} / 形式:${fmtJ}` + (x.partner ? ` / 相方:${x.partner}` : "");
+  const badge = `${x.rank}位 / ${x.pt}pt`;
+
+return `
+  <div class="pRow">
+    <div class="pRow-left">
+      <div class="pRow-main">${escapeHtml(x.tournament || "")}</div>
+      <div class="pRow-sub">${escapeHtml(sub)}</div>
+    </div>
+    <div class="badge">${escapeHtml(badge)}</div>
+  </div>
+`;
+}
+
+function closePlayerModal(){
+  const m = document.getElementById("playerModal");
+  if(!m) return;
+  m.classList.add("hidden");
+  m.setAttribute("aria-hidden","true");
+}
+
+function openPlayerModal(name){
+  const m = document.getElementById("playerModal");
+  const title = document.getElementById("playerTitle");
+  const summary = document.getElementById("playerSummary");
+  const recent = document.getElementById("playerRecent");
+  const all = document.getElementById("playerAll");
+  const pairsWrap = document.getElementById("playerPairsWrap");
+  const pairsEl = document.getElementById("playerPairs");
+
+  if(!m || !title || !summary || !recent || !all || !pairsWrap || !pairsEl) return;
+
+  const list = playerIndex[name] || [];
+  title.textContent = name;
+
+  const appearances = list.length;
+  const wins = list.filter(x=>x.rank===1).length;
+  const runner = list.filter(x=>x.rank===2).length;
+  const third = list.filter(x=>x.rank===3).length;
+
+  summary.textContent = `出場 ${appearances} / 優勝 ${wins} / 準優勝 ${runner} / 3位 ${third}`;
+
+  const recentList = list.slice(0,5);
+  recent.innerHTML = recentList.length ? recentList.map(renderEntryRow).join("") :
+    `<div class="pRow"><div class="pRow-left"><div class="pRow-main">記録なし</div></div></div>`
+
+  all.innerHTML = list.length ? list.map(renderEntryRow).join("") :
+    `<div class="pRow"><div class="pRow-left"><div class="pRow-main">記録なし</div></div></div>`
+
+  // ペア履歴
+  const pairCounts = {};
+  for(const x of list){
+    if(x.partner){
+      pairCounts[x.partner] = (pairCounts[x.partner] || 0) + 1;
+    }
+  }
+  const pairArr = Object.entries(pairCounts).sort((a,b)=>b[1]-a[1]);
+
+  if(pairArr.length){
+    pairsWrap.style.display = "";
+    pairsEl.innerHTML = pairArr.map(([partner,count])=>`
+      <div class="row">
+        <div class="row-left">
+          <div class="row-main"><span class="player-link" data-player="${escapeHtml(partner)}">${escapeHtml(partner)}</span></div>
+          <div class="row-sub">一緒に組んだ回数</div>
+        </div>
+        <div class="badge">${count}回</div>
+      </div>
+    `).join("");
+  }else{
+    pairsWrap.style.display = "none";
+    pairsEl.innerHTML = "";
+  }
+
+  m.classList.remove("hidden");
+  m.setAttribute("aria-hidden","false");
+}
+
+// クリック：data-player が付いてる要素ならどこでも開く
+document.addEventListener("click", (e)=>{
+  const el = e.target.closest("[data-player]");
+  if(!el) return;
+  const name = el.getAttribute("data-player");
+  if(name) openPlayerModal(name);
+});
+
+// 閉じる
+document.addEventListener("click", (e)=>{
+  const el = e.target.closest("[data-close='player']");
+  if(el) closePlayerModal();
+});
+
+    // 起動：スプシ読んでから描画
+    (async () => {
+      try{
+        events = await loadEventsFromSheet();
+        playerIndex = buildPlayerIndexFromEvents(events); // ★追加
+        init();
+
+        }catch(err){
+  console.error(err);
+  alert("エラー内容: " + (err?.message || err));
+  init();
+}
+    })();
+
+  </script>
+
+<!-- ★大会 詳細モーダル -->
+<div id="tourModal" style="
+  display:none; position:fixed; inset:0; z-index:9999;
+  background:rgba(0,0,0,.62);
+  padding:18px 12px;
+">
+  <div style="
+    max-width:980px; margin:0 auto;
+    border:1px solid var(--line);
+    background:rgba(18,24,38,0.96);
+    border-radius:18px;
+    box-shadow:0 20px 60px rgba(0,0,0,.55);
+    overflow:hidden;
+  ">
+    <div style="
+      padding:12px 12px 10px;
+      border-bottom:1px solid rgba(35,48,74,0.75);
+      display:flex; justify-content:space-between; gap:10px; align-items:center;
+    ">
+      <div style="min-width:0;">
+        <div id="tourModalTitle" style="font-size:13px; letter-spacing:.25px; color:var(--text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;"></div>
+        <div id="tourModalSub" class="muted" style="font-size:12px; margin-top:4px;"></div>
+      </div>
+      <button id="tourModalClose" type="button" style="
+        padding:8px 10px; border-radius:12px;
+        border:1px solid var(--line);
+        background:rgba(18,24,38,0.65);
+        color:var(--muted); cursor:pointer;
+      ">閉じる</button>
+    </div>
+
+    <div style="padding:10px 12px;">
+
+<label class="muted" style="display:inline-flex; gap:6px; align-items:center; font-size:12px; margin-bottom:8px;">
+  <input id="tourHideZero" type="checkbox" checked>
+  0ptを隠す
+</label>
+
+      <div class="scrollBox" style="max-height:70vh; border-top:none;">
+        <table>
+          <thead>
+            <tr>
+              <th>順位</th>
+              <th colspan="2">プレイヤー名</th>
+              <th class="right">pt</th>
+            </tr>
+          </thead>
+          <tbody id="tourModalBody"></tbody>
+        </table>
+      </div>
+      <div class="muted" style="font-size:11px; padding:6px 2px 0; opacity:.7;">
+        ※ダブルスは個人表示（相方付き）
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== プレイヤー詳細モーダル ===== -->
+<div id="playerModal" class="modal hidden" aria-hidden="true">
+  <div class="modal-overlay" data-close="player"></div>
+
+  <div class="modal-box">
+    <button class="modal-close" data-close="player">×</button>
+
+    <div class="modal-head">
+      <h2 id="playerTitle" class="modal-title">Player</h2>
+      <div id="playerSummary" class="modal-sub"></div>
+    </div>
+
+    <div class="modal-body">
+      <div class="section">
+        <h3 class="section-title">最近の出場</h3>
+        <div id="playerRecent" class="list"></div>
+      </div>
+
+      <div class="section">
+        <h3 class="section-title">出場大会一覧</h3>
+        <div id="playerAll" class="list"></div>
+      </div>
+
+      <div class="section" id="playerPairsWrap" style="display:none;">
+        <h3 class="section-title">ペア履歴</h3>
+        <div id="playerPairs" class="list"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
