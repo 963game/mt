@@ -703,6 +703,10 @@
 
       const add = (name, rank)=>{
         if(!name) return;
+
+        // ★rank0以下はランキング集計から除外（平均順位に混ぜない）
+        if(!(Number.isFinite(rank) && rank > 0)) return;
+
         const v = map.get(name) ?? {
           plays:0,
           gold:0,
@@ -721,10 +725,10 @@
 
       events.filter(e=>e.type===type).forEach(e=>{
         if(type==="singles"){
-          e.results.forEach(r=> add(r.player, Number(r.rank||0)));
+          e.results.forEach(r=> add(r.player, Number(r.rank)));
         }else{
           e.results.forEach(r=>{
-            const rk = Number(r.rank||0);
+            const rk = Number(r.rank);
             add(r.p1, rk);
             add(r.p2, rk);
           });
@@ -747,31 +751,58 @@
         );
     }
 
-    // ===== モード別（今はpt/wins/plays。将来ここも☆集計に置換してOK）=====
+    // ===== モード別（★総合と同じ思想：平均順位 + ☆）=====
     function computeModeStats(type, mode){
       const map = new Map();
-      const add = (name, isWin)=>{
+
+      const add = (name, rank)=>{
         if(!name) return;
-        const v = map.get(name) ?? {wins:0, plays:0};
+
+        // ★rank0以下はランキング集計から除外
+        if(!(Number.isFinite(rank) && rank > 0)) return;
+
+        const v = map.get(name) ?? {
+          plays:0,
+          gold:0,
+          silver:0,
+          rankSum:0
+        };
+
         v.plays += 1;
-        if(isWin) v.wins += 1;
+        v.rankSum += rank;
+
+        if(rank===1) v.gold += 1;
+        if(rank===2) v.silver += 1;
+
         map.set(name, v);
       };
 
       events.filter(e=>e.type===type && e.mode===mode).forEach(e=>{
         if(type==="singles"){
-          e.results.forEach(r=> add(r.player, r.rank===1));
+          e.results.forEach(r=> add(r.player, Number(r.rank)));
         }else{
           e.results.forEach(r=>{
-            add(r.p1, r.rank===1);
-            add(r.p2, r.rank===1);
+            const rk = Number(r.rank);
+            add(r.p1, rk);
+            add(r.p2, rk);
           });
         }
       });
 
       return Array.from(map.entries())
-        .map(([name,v])=>({name, ...v}))
-        .sort((a,b)=> b.wins-a.wins || b.plays-a.plays || a.name.localeCompare(b.name,"ja"));
+        .map(([name,v])=>({
+          name,
+          plays:v.plays,
+          gold:v.gold,
+          silver:v.silver,
+          avgRank: v.rankSum / v.plays
+        }))
+        .sort((a,b)=>
+          a.avgRank - b.avgRank ||
+          b.gold - a.gold ||
+          b.silver - a.silver ||
+          a.name.localeCompare(b.name,"ja")
+        );
     }
 
     function stars(n, cls){
@@ -850,8 +881,8 @@
             <td class="mono">${r.rank}</td>
             <td>${escapeHtml(r.name)}</td>
             <td class="right mono">${r.plays}</td>
-            <td class="right mono">${stars(r.wins, "star-gold")}</td>
-            <td class="right mono">—</td>`;
+            <td class="right mono">${stars(r.gold, "star-gold")}</td>
+            <td class="right mono">${stars(r.silver, "star-silver")}</td>`;
           tb.appendChild(tr);
         });
       }
