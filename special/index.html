@@ -81,7 +81,19 @@
 
     .row{display:none}
     .row.active{display:block}
+
+    /* 既存の縦積み */
     .stack{display:grid;grid-template-columns:1fr;gap:12px}
+
+    /* ★モード2列用（PCは2列、スマホは1列） */
+    .grid2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+    }
+    @media (max-width: 760px){
+      .grid2{ grid-template-columns: 1fr; }
+    }
 
     .scrollBox{
       max-height: 65vh;
@@ -132,7 +144,7 @@
     <section id="court" class="row active">
       <div class="stack">
 
-        <!-- 総合 top8 -->
+        <!-- 総合 top8（フル幅） -->
         <div class="card">
           <h2>コート杯｜総合 <span class="tag"><span style="color:var(--accent2)">◆</span> top 8</span></h2>
           <div style="overflow:auto">
@@ -147,37 +159,38 @@
           </div>
         </div>
 
-        <!-- フィーバー top8 -->
-        <div class="card">
-          <h2>コート杯｜フィーバー <span class="tag"><span style="color:var(--accent2)">◆</span> top 8</span></h2>
-          <div style="overflow:auto">
-            <table>
-              <thead>
-                <tr>
-                  <th>順位</th><th>プレイヤー</th><th class="right">参加</th><th class="right">☆（1位）</th><th class="right">☆（2位）</th>
-                </tr>
-              </thead>
-              <tbody id="courtFeverOverall"></tbody>
-            </table>
+        <!-- ★モード2列（フィーバー/クラシック） -->
+        <div class="grid2">
+          <div class="card">
+            <h2>コート杯｜フィーバー <span class="tag"><span style="color:var(--accent2)">◆</span> top 8</span></h2>
+            <div style="overflow:auto">
+              <table>
+                <thead>
+                  <tr>
+                    <th>順位</th><th>プレイヤー</th><th class="right">参加</th><th class="right">☆（1位）</th><th class="right">☆（2位）</th>
+                  </tr>
+                </thead>
+                <tbody id="courtFeverOverall"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2>コート杯｜クラシック <span class="tag"><span style="color:var(--accent2)">◆</span> top 8</span></h2>
+            <div style="overflow:auto">
+              <table>
+                <thead>
+                  <tr>
+                    <th>順位</th><th>プレイヤー</th><th class="right">参加</th><th class="right">☆（1位）</th><th class="right">☆（2位）</th>
+                  </tr>
+                </thead>
+                <tbody id="courtClassicOverall"></tbody>
+              </table>
+            </div>
           </div>
         </div>
 
-        <!-- クラシック top8 -->
-        <div class="card">
-          <h2>コート杯｜クラシック <span class="tag"><span style="color:var(--accent2)">◆</span> top 8</span></h2>
-          <div style="overflow:auto">
-            <table>
-              <thead>
-                <tr>
-                  <th>順位</th><th>プレイヤー</th><th class="right">参加</th><th class="right">☆（1位）</th><th class="right">☆（2位）</th>
-                </tr>
-              </thead>
-              <tbody id="courtClassicOverall"></tbody>
-            </table>
-          </div>
-        </div>
-
-        <!-- 総合 全順位（最下部へ移動） -->
+        <!-- 総合 全順位（最下部 / フル幅） -->
         <div class="card">
           <h2>
             <span>コート杯｜総合（全順位）</span>
@@ -242,7 +255,7 @@
           </div>
         </div>
 
-        <!-- 総合 全順位（この1つだけ） -->
+        <!-- 総合 全順位 -->
         <div class="card">
           <h2>
             <span>ラケット杯｜総合（全順位）</span>
@@ -292,7 +305,7 @@
     <section id="character" class="row">
       <div class="stack">
 
-        <!-- 総合 top8 -->
+        <!-- 総合 top8（フル幅） -->
         <div class="card">
           <h2>キャラ杯｜総合 <span class="tag"><span style="color:var(--accent2)">◆</span> top 8</span></h2>
           <div style="overflow:auto">
@@ -307,37 +320,38 @@
           </div>
         </div>
 
-        <!-- フィーバー top8 -->
-        <div class="card">
-          <h2>キャラ杯｜フィーバー <span class="tag"><span style="color:var(--accent2)">◆</span> top 8</span></h2>
-          <div style="overflow:auto">
-            <table>
-              <thead>
-                <tr>
-                  <th>順位</th><th>プレイヤー</th><th class="right">参加</th><th class="right">☆（1位）</th><th class="right">☆（2位）</th>
-                </tr>
-              </thead>
-              <tbody id="characterFeverOverall"></tbody>
-            </table>
+        <!-- ★モード2列（フィーバー/クラシック） -->
+        <div class="grid2">
+          <div class="card">
+            <h2>キャラ杯｜フィーバー <span class="tag"><span style="color:var(--accent2)">◆</span> top 8</span></h2>
+            <div style="overflow:auto">
+              <table>
+                <thead>
+                  <tr>
+                    <th>順位</th><th>プレイヤー</th><th class="right">参加</th><th class="right">☆（1位）</th><th class="right">☆（2位）</th>
+                  </tr>
+                </thead>
+                <tbody id="characterFeverOverall"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2>キャラ杯｜クラシック <span class="tag"><span style="color:var(--accent2)">◆</span> top 8</span></h2>
+            <div style="overflow:auto">
+              <table>
+                <thead>
+                  <tr>
+                    <th>順位</th><th>プレイヤー</th><th class="right">参加</th><th class="right">☆（1位）</th><th class="right">☆（2位）</th>
+                  </tr>
+                </thead>
+                <tbody id="characterClassicOverall"></tbody>
+              </table>
+            </div>
           </div>
         </div>
 
-        <!-- クラシック top8 -->
-        <div class="card">
-          <h2>キャラ杯｜クラシック <span class="tag"><span style="color:var(--accent2)">◆</span> top 8</span></h2>
-          <div style="overflow:auto">
-            <table>
-              <thead>
-                <tr>
-                  <th>順位</th><th>プレイヤー</th><th class="right">参加</th><th class="right">☆（1位）</th><th class="right">☆（2位）</th>
-                </tr>
-              </thead>
-              <tbody id="characterClassicOverall"></tbody>
-            </table>
-          </div>
-        </div>
-
-        <!-- 総合 全順位（最下部へ移動） -->
+        <!-- 総合 全順位（最下部 / フル幅） -->
         <div class="card">
           <h2>
             <span>キャラ杯｜総合（全順位）</span>
@@ -517,7 +531,6 @@
       tbody.appendChild(frag);
     }
 
-    // prefix例: "courtAll" / "racketAll" / "characterAll"
     function setupFold(prefix){
       const btn  = document.getElementById(prefix+"FoldBtn");
       const body = document.getElementById(prefix+"FoldBody");
@@ -530,7 +543,6 @@
       });
     }
 
-    // prefix例: "courtAll" / "racketAll" / "characterAll"
     function setupRankList(prefix, cupKey, mode){
       const tb = document.getElementById(prefix+"RankAll");
       const sentinel = document.getElementById(prefix+"RankSentinel");
@@ -608,7 +620,6 @@
     }
 
     function init(){
-      // tabs
       const tabsWrap = $("#tabs");
       tabsWrap.innerHTML = "";
       tabs.forEach(t=>{
