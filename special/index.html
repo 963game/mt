@@ -1,10 +1,649 @@
 <!doctype html>
 <html lang="ja">
 <head>
-<meta charset="utf-8">
-<title>Special Ranking</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Special Rules | Singles Records</title>
+
+  <style>
+    .star-gold{ color: var(--gold); }
+    .star-silver{ color: var(--silver); }
+
+    :root{
+      --bg:#0b0e14; --line:#23304a;
+      --text:#e9eefc; --muted:#9fb0d0;
+      --accent:#b86bff; --accent2:#6ee7ff;
+      --gold:#ffd56a; --silver:#c7d2fe; --bronze:#f2b38f;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      color:var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+
+      background:
+        radial-gradient(1200px 600px at 18% 8%, rgba(184,107,255,0.18), transparent 60%),
+        radial-gradient(1200px 600px at 82% 12%, rgba(110,231,255,0.14), transparent 55%),
+        var(--bg);
+
+      padding:18px 12px 36px;
+    }
+
+    .wrap{max-width:980px;margin:0 auto}
+    header{display:flex;justify-content:space-between;gap:12px;align-items:flex-end;flex-wrap:wrap;margin:6px 0 10px}
+    h1{margin:0;font-size:20px;letter-spacing:.3px}
+    .sub{margin:6px 0 0;color:var(--muted);font-size:12px;line-height:1.6}
+
+    .tabs{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 12px}
+    .tab{
+      border:1px solid var(--line); background:rgba(18,24,38,0.65);
+      color:var(--muted); padding:10px 12px; border-radius:12px; cursor:pointer;
+      user-select:none; font-size:13px;
+    }
+    .tab.active{
+      border-color:rgba(184,107,255,0.7);
+      background:linear-gradient(180deg, rgba(184,107,255,0.20), rgba(18,24,38,0.65));
+      color:var(--text);
+    }
+
+    .card{
+      border:1px solid var(--line);
+      background:rgba(18,24,38,0.88);
+      border-radius:18px; overflow:hidden;
+      box-shadow:0 10px 40px rgba(0,0,0,.35);
+    }
+    .card h2{
+      margin:0; padding:12px 12px 10px;
+      font-size:13px; letter-spacing:.25px;
+      border-bottom:1px solid rgba(35,48,74,0.75);
+      display:flex;justify-content:space-between;gap:10px;align-items:center;
+    }
+    .tag{
+      display:inline-flex;gap:6px;align-items:center;
+      padding:4px 8px;border-radius:999px;
+      border:1px solid rgba(159,176,208,0.25);
+      background:rgba(159,176,208,0.08);
+      color:var(--muted); font-size:12px;
+      white-space:nowrap;
+    }
+
+    table{width:100%;border-collapse:collapse;font-size:13px}
+    th,td{padding:9px 10px;border-bottom:1px solid rgba(35,48,74,0.55);text-align:left}
+    th{color:var(--muted);font-weight:600;font-size:12px}
+    tr:last-child td{border-bottom:none}
+
+    .right{text-align:right}
+    .mono{
+      font-variant-numeric:tabular-nums;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+    .muted{color:var(--muted)}
+
+    .row{display:none}
+    .row.active{display:block}
+    .stack{display:grid;grid-template-columns:1fr;gap:12px}
+
+    .scrollBox{
+      max-height: 65vh;
+      overflow:auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-gutter: stable;
+      border-top: 1px solid rgba(35,48,74,0.55);
+      position: relative;
+      mask-image: linear-gradient(to bottom, transparent 0, #000 24px, #000 calc(100% - 24px), transparent 100%);
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 24px, #000 calc(100% - 24px), transparent 100%);
+    }
+    .scrollBox{ scrollbar-width: thin; scrollbar-color: rgba(159,176,208,0.35) transparent; }
+    .scrollBox::-webkit-scrollbar{ width: 8px; height: 8px; }
+    .scrollBox::-webkit-scrollbar-track{ background: transparent; }
+    .scrollBox::-webkit-scrollbar-thumb{
+      background: rgba(159,176,208,0.22);
+      border-radius: 999px;
+      border: 2px solid transparent;
+      background-clip: content-box;
+    }
+
+    .player-link{
+      cursor:pointer;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+  </style>
 </head>
+
 <body>
-準備中（特殊ルールランキング）
+  <div class="wrap">
+    <header>
+      <div>
+        <h1>Special Rules | Singles Records</h1>
+        <div class="sub">
+          特殊ルール杯のランキング（シングルス）。<br>
+          コート杯 / ラケット杯 / キャラ杯 をタブで切り替え。順位は「大会ごとの順位」平均（rank0は除外）で並べます。<br>
+          更新：<span id="updatedAt" class="mono"></span>
+        </div>
+      </div>
+    </header>
+
+    <div class="tabs" id="tabs"></div>
+
+    <!-- =========================
+         Court
+    ========================== -->
+    <section id="court" class="row active">
+      <div class="stack">
+
+        <!-- 総合 top8 -->
+        <div class="card">
+          <h2>コート杯｜総合 <span class="tag"><span style="color:var(--accent2)">◆</span> top 8</span></h2>
+          <div style="overflow:auto">
+            <table>
+              <thead>
+                <tr>
+                  <th>順位</th><th>プレイヤー</th><th class="right">参加</th><th class="right">☆（1位）</th><th class="right">☆（2位）</th>
+                </tr>
+              </thead>
+              <tbody id="courtOverall"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- フィーバー top8 -->
+        <div class="card">
+          <h2>コート杯｜フィーバー <span class="tag"><span style="color:var(--accent2)">◆</span> top 8</span></h2>
+          <div style="overflow:auto">
+            <table>
+              <thead>
+                <tr>
+                  <th>順位</th><th>プレイヤー</th><th class="right">参加</th><th class="right">☆（1位）</th><th class="right">☆（2位）</th>
+                </tr>
+              </thead>
+              <tbody id="courtFeverOverall"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- クラシック top8 -->
+        <div class="card">
+          <h2>コート杯｜クラシック <span class="tag"><span style="color:var(--accent2)">◆</span> top 8</span></h2>
+          <div style="overflow:auto">
+            <table>
+              <thead>
+                <tr>
+                  <th>順位</th><th>プレイヤー</th><th class="right">参加</th><th class="right">☆（1位）</th><th class="right">☆（2位）</th>
+                </tr>
+              </thead>
+              <tbody id="courtClassicOverall"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 総合 全順位（最下部へ移動） -->
+        <div class="card">
+          <h2>
+            <span>コート杯｜総合（全順位）</span>
+            <span style="display:flex; gap:8px; align-items:center;">
+              <span class="tag"><span style="color:var(--accent2)">◆</span> scroll</span>
+              <button id="courtAllFoldBtn" type="button"
+                style="padding:6px 10px; border-radius:12px; border:1px solid var(--line);
+                background:rgba(18,24,38,0.65); color:var(--muted); cursor:pointer;">開く</button>
+            </span>
+          </h2>
+
+          <div id="courtAllFoldBody" style="display:none;">
+            <div style="padding:10px 12px; display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+              <input id="courtAllSearch" type="text" placeholder="名前検索（部分一致OK）"
+                style="flex:1; min-width:220px; padding:10px 12px; border-radius:12px; border:1px solid var(--line);
+                background:rgba(18,24,38,0.65); color:var(--text); outline:none;">
+              <button id="courtAllSearchBtn" type="button"
+                style="padding:10px 12px; border-radius:12px; border:1px solid rgba(184,107,255,0.7);
+                background:linear-gradient(180deg, rgba(184,107,255,0.25), rgba(18,24,38,0.65));
+                color:var(--text); cursor:pointer;">ジャンプ</button>
+              <button id="courtAllResetBtn" type="button"
+                style="padding:10px 12px; border-radius:12px; border:1px solid var(--line);
+                background:rgba(18,24,38,0.65); color:var(--muted); cursor:pointer;">リセット</button>
+            </div>
+
+            <div class="scrollBox" id="courtAllRankScroll">
+              <table>
+                <thead>
+                  <tr>
+                    <th>順位</th><th>プレイヤー</th><th class="right">参加</th><th class="right">☆（1位）</th><th class="right">☆（2位）</th>
+                  </tr>
+                </thead>
+                <tbody id="courtAllRankAll"></tbody>
+              </table>
+              <div id="courtAllRankSentinel" style="height:1px;"></div>
+            </div>
+            <div id="courtAllRankHint" class="muted" style="padding:6px 12px; font-size:12px;"></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =========================
+         Racket (fever only)
+    ========================== -->
+    <section id="racket" class="row">
+      <div class="stack">
+
+        <!-- 総合（=フィーバー） top8 -->
+        <div class="card">
+          <h2>ラケット杯｜総合（フィーバー） <span class="tag"><span style="color:var(--accent2)">◆</span> top 8</span></h2>
+          <div style="overflow:auto">
+            <table>
+              <thead>
+                <tr>
+                  <th>順位</th><th>プレイヤー</th><th class="right">参加</th><th class="right">☆（1位）</th><th class="right">☆（2位）</th>
+                </tr>
+              </thead>
+              <tbody id="racketOverall"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 総合 全順位（この1つだけ） -->
+        <div class="card">
+          <h2>
+            <span>ラケット杯｜総合（全順位）</span>
+            <span style="display:flex; gap:8px; align-items:center;">
+              <span class="tag"><span style="color:var(--accent2)">◆</span> scroll</span>
+              <button id="racketAllFoldBtn" type="button"
+                style="padding:6px 10px; border-radius:12px; border:1px solid var(--line);
+                background:rgba(18,24,38,0.65); color:var(--muted); cursor:pointer;">開く</button>
+            </span>
+          </h2>
+
+          <div id="racketAllFoldBody" style="display:none;">
+            <div style="padding:10px 12px; display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+              <input id="racketAllSearch" type="text" placeholder="名前検索（部分一致OK）"
+                style="flex:1; min-width:220px; padding:10px 12px; border-radius:12px; border:1px solid var(--line);
+                background:rgba(18,24,38,0.65); color:var(--text); outline:none;">
+              <button id="racketAllSearchBtn" type="button"
+                style="padding:10px 12px; border-radius:12px; border:1px solid rgba(184,107,255,0.7);
+                background:linear-gradient(180deg, rgba(184,107,255,0.25), rgba(18,24,38,0.65));
+                color:var(--text); cursor:pointer;">ジャンプ</button>
+              <button id="racketAllResetBtn" type="button"
+                style="padding:10px 12px; border-radius:12px; border:1px solid var(--line);
+                background:rgba(18,24,38,0.65); color:var(--muted); cursor:pointer;">リセット</button>
+            </div>
+
+            <div class="scrollBox" id="racketAllRankScroll">
+              <table>
+                <thead>
+                  <tr>
+                    <th>順位</th><th>プレイヤー</th><th class="right">参加</th><th class="right">☆（1位）</th><th class="right">☆（2位）</th>
+                  </tr>
+                </thead>
+                <tbody id="racketAllRankAll"></tbody>
+              </table>
+              <div id="racketAllRankSentinel" style="height:1px;"></div>
+            </div>
+            <div id="racketAllRankHint" class="muted" style="padding:6px 12px; font-size:12px;"></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =========================
+         Character
+    ========================== -->
+    <section id="character" class="row">
+      <div class="stack">
+
+        <!-- 総合 top8 -->
+        <div class="card">
+          <h2>キャラ杯｜総合 <span class="tag"><span style="color:var(--accent2)">◆</span> top 8</span></h2>
+          <div style="overflow:auto">
+            <table>
+              <thead>
+                <tr>
+                  <th>順位</th><th>プレイヤー</th><th class="right">参加</th><th class="right">☆（1位）</th><th class="right">☆（2位）</th>
+                </tr>
+              </thead>
+              <tbody id="characterOverall"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- フィーバー top8 -->
+        <div class="card">
+          <h2>キャラ杯｜フィーバー <span class="tag"><span style="color:var(--accent2)">◆</span> top 8</span></h2>
+          <div style="overflow:auto">
+            <table>
+              <thead>
+                <tr>
+                  <th>順位</th><th>プレイヤー</th><th class="right">参加</th><th class="right">☆（1位）</th><th class="right">☆（2位）</th>
+                </tr>
+              </thead>
+              <tbody id="characterFeverOverall"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- クラシック top8 -->
+        <div class="card">
+          <h2>キャラ杯｜クラシック <span class="tag"><span style="color:var(--accent2)">◆</span> top 8</span></h2>
+          <div style="overflow:auto">
+            <table>
+              <thead>
+                <tr>
+                  <th>順位</th><th>プレイヤー</th><th class="right">参加</th><th class="right">☆（1位）</th><th class="right">☆（2位）</th>
+                </tr>
+              </thead>
+              <tbody id="characterClassicOverall"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 総合 全順位（最下部へ移動） -->
+        <div class="card">
+          <h2>
+            <span>キャラ杯｜総合（全順位）</span>
+            <span style="display:flex; gap:8px; align-items:center;">
+              <span class="tag"><span style="color:var(--accent2)">◆</span> scroll</span>
+              <button id="characterAllFoldBtn" type="button"
+                style="padding:6px 10px; border-radius:12px; border:1px solid var(--line);
+                background:rgba(18,24,38,0.65); color:var(--muted); cursor:pointer;">開く</button>
+            </span>
+          </h2>
+
+          <div id="characterAllFoldBody" style="display:none;">
+            <div style="padding:10px 12px; display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+              <input id="characterAllSearch" type="text" placeholder="名前検索（部分一致OK）"
+                style="flex:1; min-width:220px; padding:10px 12px; border-radius:12px; border:1px solid var(--line);
+                background:rgba(18,24,38,0.65); color:var(--text); outline:none;">
+              <button id="characterAllSearchBtn" type="button"
+                style="padding:10px 12px; border-radius:12px; border:1px solid rgba(184,107,255,0.7);
+                background:linear-gradient(180deg, rgba(184,107,255,0.25), rgba(18,24,38,0.65));
+                color:var(--text); cursor:pointer;">ジャンプ</button>
+              <button id="characterAllResetBtn" type="button"
+                style="padding:10px 12px; border-radius:12px; border:1px solid var(--line);
+                background:rgba(18,24,38,0.65); color:var(--muted); cursor:pointer;">リセット</button>
+            </div>
+
+            <div class="scrollBox" id="characterAllRankScroll">
+              <table>
+                <thead>
+                  <tr>
+                    <th>順位</th><th>プレイヤー</th><th class="right">参加</th><th class="right">☆（1位）</th><th class="right">☆（2位）</th>
+                  </tr>
+                </thead>
+                <tbody id="characterAllRankAll"></tbody>
+              </table>
+              <div id="characterAllRankSentinel" style="height:1px;"></div>
+            </div>
+            <div id="characterAllRankHint" class="muted" style="padding:6px 12px; font-size:12px;"></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    // =========================
+    // 後で差し替える（今は空でOK）
+    // =========================
+    const SPREADSHEET_CSV_URL = "";
+
+    let events = []; // 後で読み込む想定
+    const $ = (s)=>document.querySelector(s);
+
+    const tabs = [
+      {key:"court", label:"コート杯"},
+      {key:"racket", label:"ラケット杯"},
+      {key:"character", label:"キャラ杯"},
+    ];
+
+    function setActiveTab(key){
+      tabs.forEach(t=>{
+        const tabEl = $("#tab_"+t.key);
+        const rowEl = $("#"+t.key);
+        if(tabEl) tabEl.classList.toggle("active", t.key===key);
+        if(rowEl) rowEl.classList.toggle("active", t.key===key);
+      });
+    }
+
+    // 同率順位（avgRankが同じなら同順位）
+    function addTiedRanks(rows){
+      let rank = 0;
+      let shown = 0;
+      let prev = null;
+
+      return rows.map(r=>{
+        shown += 1;
+        const key = Number.isFinite(r.avgRank) ? r.avgRank.toFixed(4) : String(shown);
+        if(prev === null || key !== prev){
+          rank = shown;
+          prev = key;
+        }
+        return {...r, rank};
+      });
+    }
+
+    function stars(n, cls){
+      if(!n) return `<span class="muted">—</span>`;
+      return `<span class="${cls}">☆${n}</span>`;
+    }
+
+    function escapeHtml(str){
+      return String(str)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+    }
+
+    function normalizeText(s){ return (s || "").trim().toLowerCase(); }
+
+    // cupKey: "court" | "racket" | "character"
+    // mode: ""(総合) | "fever" | "classic"
+    function computeCupStats(cupKey, mode=""){
+      const map = new Map();
+
+      const add = (name, rank)=>{
+        if(!name) return;
+        if(!(Number.isFinite(rank) && rank > 0)) return; // rank0以下は除外
+        const v = map.get(name) ?? {plays:0, gold:0, silver:0, rankSum:0};
+        v.plays += 1;
+        v.rankSum += rank;
+        if(rank===1) v.gold += 1;
+        if(rank===2) v.silver += 1;
+        map.set(name, v);
+      };
+
+      (events || []).filter(e=>{
+        if(e.cup !== cupKey) return false;
+        if(cupKey==="racket" && e.mode !== "fever") return false;
+        if(mode && e.mode !== mode) return false;
+        return true;
+      }).forEach(e=>{
+        (e.results || []).forEach(r=> add(r.player, Number(r.rank)));
+      });
+
+      return Array.from(map.entries())
+        .map(([name,v])=>({name, plays:v.plays, gold:v.gold, silver:v.silver, avgRank: v.rankSum/v.plays}))
+        .sort((a,b)=>
+          a.avgRank - b.avgRank ||
+          b.gold - a.gold ||
+          b.silver - a.silver ||
+          a.name.localeCompare(b.name,"ja")
+        );
+    }
+
+    function renderOverall(tbodyId, rows){
+      const tb = document.getElementById(tbodyId);
+      if(!tb) return;
+
+      tb.innerHTML = "";
+      if(rows.length===0){
+        tb.innerHTML = `<tr><td colspan="5" class="muted">まだデータがありません（スプシ連携前）</td></tr>`;
+        return;
+      }
+
+      const top8 = rows.slice(0,8);
+      addTiedRanks(top8).forEach(r=>{
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td class="mono">${r.rank}</td>
+          <td><span class="player-link" data-player="${escapeHtml(r.name)}">${escapeHtml(r.name)}</span></td>
+          <td class="right mono">${r.plays}</td>
+          <td class="right mono">${stars(r.gold, "star-gold")}</td>
+          <td class="right mono">${stars(r.silver, "star-silver")}</td>
+        `;
+        tb.appendChild(tr);
+      });
+    }
+
+    function renderRankingChunk(tbody, rows, start, end){
+      const frag = document.createDocumentFragment();
+      for(let i=start; i<end; i++){
+        const r = rows[i];
+        const tr = document.createElement("tr");
+        tr.dataset.idx = String(i);
+        tr.innerHTML = `
+          <td class="mono">${r.rank}</td>
+          <td><span class="player-link" data-player="${escapeHtml(r.name)}">${escapeHtml(r.name)}</span></td>
+          <td class="right mono">${r.plays}</td>
+          <td class="right mono">${stars(r.gold, "star-gold")}</td>
+          <td class="right mono">${stars(r.silver, "star-silver")}</td>
+        `;
+        frag.appendChild(tr);
+      }
+      tbody.appendChild(frag);
+    }
+
+    // prefix例: "courtAll" / "racketAll" / "characterAll"
+    function setupFold(prefix){
+      const btn  = document.getElementById(prefix+"FoldBtn");
+      const body = document.getElementById(prefix+"FoldBody");
+      if(!btn || !body) return;
+
+      btn.addEventListener("click", ()=>{
+        const open = body.style.display !== "none";
+        body.style.display = open ? "none" : "block";
+        btn.textContent = open ? "開く" : "閉じる";
+      });
+    }
+
+    // prefix例: "courtAll" / "racketAll" / "characterAll"
+    function setupRankList(prefix, cupKey, mode){
+      const tb = document.getElementById(prefix+"RankAll");
+      const sentinel = document.getElementById(prefix+"RankSentinel");
+      const hint = document.getElementById(prefix+"RankHint");
+
+      const input = document.getElementById(prefix+"Search");
+      const btn   = document.getElementById(prefix+"SearchBtn");
+      const reset = document.getElementById(prefix+"ResetBtn");
+
+      const rootEl = document.getElementById(prefix+"RankScroll");
+      if(!tb || !sentinel || !input || !btn || !reset || !rootEl) return;
+
+      let io = null;
+      let rows = [];
+      let visible = 0;
+      const step = 20;
+
+      const ensureVisible = (count)=>{
+        const next = Math.min(count, rows.length);
+        if(next <= visible) return;
+        renderRankingChunk(tb, rows, visible, next);
+        visible = next;
+        if(hint) hint.textContent = `表示：${visible}/${rows.length}`;
+      };
+
+      const rebuild = ()=>{
+        if(io) io.disconnect();
+
+        const rowsRaw = computeCupStats(cupKey, mode);
+        rows = addTiedRanks(rowsRaw);
+
+        tb.innerHTML = "";
+        visible = 0;
+        ensureVisible(step);
+
+        io = new IntersectionObserver((ents)=>{
+          for(const e of ents){
+            if(e.isIntersecting) ensureVisible(visible + step);
+          }
+        }, {root: rootEl});
+
+        io.observe(sentinel);
+      };
+
+      rebuild();
+
+      const jump = ()=>{
+        const q = normalizeText(input.value);
+        if(!q) return;
+
+        const idx = rows.findIndex(r => normalizeText(r.name).includes(q));
+        if(idx < 0){
+          if(hint) hint.textContent = `「${input.value}」は見つからない`;
+          return;
+        }
+
+        ensureVisible(idx + 1);
+
+        const tr = tb.querySelector(`tr[data-idx="${idx}"]`);
+        if(tr){
+          tr.scrollIntoView({behavior:"smooth", block:"center"});
+          tr.style.background = "rgba(184,107,255,0.2)";
+          setTimeout(()=> tr.style.background = "transparent", 900);
+          if(hint) hint.textContent = `#${rows[idx].rank} ${rows[idx].name}`;
+        }
+      };
+
+      btn.onclick = jump;
+      input.addEventListener("keydown", e=>{ if(e.key==="Enter") jump(); });
+
+      reset.onclick = ()=>{
+        input.value = "";
+        rootEl.scrollTo({top:0, behavior:"smooth"});
+      };
+    }
+
+    function init(){
+      // tabs
+      const tabsWrap = $("#tabs");
+      tabsWrap.innerHTML = "";
+      tabs.forEach(t=>{
+        const el = document.createElement("div");
+        el.className = "tab" + (t.key==="court" ? " active" : "");
+        el.id = "tab_"+t.key;
+        el.textContent = t.label;
+        el.onclick = ()=>setActiveTab(t.key);
+        tabsWrap.appendChild(el);
+      });
+
+      const upd = $("#updatedAt");
+      if(upd) upd.textContent = new Date().toISOString().slice(0,19).replace("T"," ");
+
+      // ===== Court =====
+      renderOverall("courtOverall",        computeCupStats("court",""));
+      renderOverall("courtFeverOverall",   computeCupStats("court","fever"));
+      renderOverall("courtClassicOverall", computeCupStats("court","classic"));
+      setupFold("courtAll");
+      setupRankList("courtAll", "court", "");
+
+      // ===== Racket =====（総合=フィーバー）
+      renderOverall("racketOverall", computeCupStats("racket","fever"));
+      setupFold("racketAll");
+      setupRankList("racketAll", "racket", "fever");
+
+      // ===== Character =====
+      renderOverall("characterOverall",        computeCupStats("character",""));
+      renderOverall("characterFeverOverall",   computeCupStats("character","fever"));
+      renderOverall("characterClassicOverall", computeCupStats("character","classic"));
+      setupFold("characterAll");
+      setupRankList("characterAll", "character", "");
+    }
+
+    init();
+  </script>
 </body>
 </html>
