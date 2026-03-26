@@ -21,6 +21,7 @@
       font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans JP","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;
       background:
         linear-gradient(rgba(11,14,20,0.70), rgba(11,14,20,0.78)),
+        url("https://963game.github.io/images/スクリーンショット%202026-02-14%20224903.png") center / cover no-repeat fixed,
         radial-gradient(1200px 600px at 18% 8%, rgba(184,107,255,0.18), transparent 60%),
         radial-gradient(1200px 600px at 82% 12%, rgba(110,231,255,0.14), transparent 55%),
         var(--bg);
@@ -93,25 +94,19 @@
       color:var(--muted);
       font-size:12px;
       line-height:1.7;
-      max-height: 9.2em;
-      overflow-y: auto;
-      overflow-x: hidden;
-      scrollbar-gutter: stable;
+      max-height:9.2em;
+      overflow-y:auto;
+      overflow-x:hidden;
+      scrollbar-gutter:stable;
     }
 
     .scrollBox{
-      max-height: 65vh;
+      max-height:65vh;
       overflow:auto;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-gutter: stable;
-      border-top: 1px solid rgba(35,48,74,0.55);
-      position: relative;
-    }
-
-    .player-link{
-      cursor:pointer;
-      text-decoration: underline;
-      text-underline-offset: 2px;
+      -webkit-overflow-scrolling:touch;
+      scrollbar-gutter:stable;
+      border-top:1px solid rgba(35,48,74,0.55);
+      position:relative;
     }
 
     .filterBar{
@@ -241,9 +236,8 @@
   </div>
 
   <script>
-    // ここをあなたのspecial_rulesシートのgid付きCSV URLに差し替え
     const SPREADSHEET_CSV_URL =
-      "https://docs.google.com/spreadsheets/d/e/2PACX-1vSydZeRcqGb_J3B1GadvScM6gRdCbxaQc0C4WC2vEasXU-ov21qtl2E4ae6icxrtqMdFtPZlZlTW-6s/pub?gid=717804585&single=true&output=csv";
+      "https://docs.google.com/spreadsheets/d/e/2PACX-1vSydZeRcqGb_J3B1GadvScM6gRdCbxaQc0C4WC2vEasXU-ov21qtl2E4ae6icxrtqMdFtPZlZlTW-6s/pub?gid=739430839&single=true&output=csv";
 
     let events = [];
     const $ = (s)=>document.querySelector(s);
@@ -793,7 +787,12 @@
       const grid = parseCSV(text);
       if(grid.length < 2) return;
 
-      const header = grid[0].map(h => String(h||"").trim());
+      const header = grid[0].map((h, i) => {
+        let v = String(h || "").trim();
+        if (i === 0) v = v.replace(/^\uFEFF/, "");
+        return v;
+      });
+
       const dataRows = grid.slice(1);
 
       const records = dataRows.map(r=>{
@@ -805,8 +804,9 @@
       const map = new Map();
 
       for(const rec of records){
-        const date = parseDateLoose(rec.date);
-        const dateStr = date ? toJPDate(date) : String(rec.date || "").trim();
+        const dateRaw = rec.date || rec["﻿date"] || "";
+        const date = parseDateLoose(dateRaw);
+        const dateStr = date ? toJPDate(date) : String(dateRaw).trim();
         const name = String(rec.tournament || "").trim();
         const cup = normalizeCup(rec.category);
         const type = normalizeType(rec.type);
