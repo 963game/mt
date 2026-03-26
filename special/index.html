@@ -654,25 +654,23 @@
       `;
     }
 
-    function buildCupSection(cupKey){
-      const cupLabel = labelCup(cupKey);
-      const isRacket = cupKey === "racket";
+function buildCupSection(cupKey){
+  const cupLabel = labelCup(cupKey);
+  const isRacket = cupKey === "racket";
 
-      return `
-        <div class="stack">
-          <div class="card info">
-            <h2>更新情報 <span class="tag">info</span></h2>
-            <div class="infoBox">
-              <div>${cupLabel}｜シングルス｜最新（フィーバー）：<span id="${cupKey}_latestSinglesFever" class="mono"></span></div>
-              ${isRacket ? "" : `<div>${cupLabel}｜シングルス｜最新（クラシック）：<span id="${cupKey}_latestSinglesClassic" class="mono"></span></div>`}
-              <div>${cupLabel}｜ダブルス｜最新（フィーバー）：<span id="${cupKey}_latestDoublesFever" class="mono"></span></div>
-              ${isRacket ? "" : `<div>${cupLabel}｜ダブルス｜最新（クラシック）：<span id="${cupKey}_latestDoublesClassic" class="mono"></span></div>`}
-              <div>更新：<span id="${cupKey}_updatedAt" class="mono"></span></div>
-            </div>
+  if (isRacket) {
+    return `
+      <div class="stack">
+        <div class="card info">
+          <h2>更新情報 <span class="tag">info</span></h2>
+          <div class="infoBox">
+            <div>${cupLabel}｜シングルス｜最新：<span id="${cupKey}_latestSinglesFever" class="mono"></span></div>
+            <div>${cupLabel}｜ダブルス｜最新：<span id="${cupKey}_latestDoublesFever" class="mono"></span></div>
+            <div>更新：<span id="${cupKey}_updatedAt" class="mono"></span></div>
           </div>
+        </div>
 
-          <div class="sectionLabel">シングルス</div>
-
+        <div class="twoCol">
           <div class="card">
             <h2>${cupLabel}｜シングルス総合（個人） <span class="tag">top 8</span></h2>
             <div style="overflow:auto">
@@ -687,10 +685,22 @@
             </div>
           </div>
 
-          <div class="twoCol">
-            ${buildModeBoardsHTML(cupKey, "singles")}
+          <div class="card">
+            <h2>${cupLabel}｜ダブルス総合（個人） <span class="tag">top 8</span></h2>
+            <div style="overflow:auto">
+              <table>
+                <thead>
+                  <tr>
+                    <th>順位</th><th>プレイヤー</th><th class="right">参加</th><th class="right">☆（1位）</th><th class="right">☆（2位）</th>
+                  </tr>
+                </thead>
+                <tbody id="${cupKey}_doubles_overall"></tbody>
+              </table>
+            </div>
           </div>
+        </div>
 
+        <div class="twoCol">
           <div class="card">
             <h2>
               <span>${cupLabel}｜シングルス総合（全順位）</span>
@@ -718,26 +728,6 @@
               </div>
               <div id="${cupKey}_singlesRankHint" class="muted" style="padding:6px 12px; font-size:12px;"></div>
             </div>
-          </div>
-
-          <div class="sectionLabel">ダブルス</div>
-
-          <div class="card">
-            <h2>${cupLabel}｜ダブルス総合（個人） <span class="tag">top 8</span></h2>
-            <div style="overflow:auto">
-              <table>
-                <thead>
-                  <tr>
-                    <th>順位</th><th>プレイヤー</th><th class="right">参加</th><th class="right">☆（1位）</th><th class="right">☆（2位）</th>
-                  </tr>
-                </thead>
-                <tbody id="${cupKey}_doubles_overall"></tbody>
-              </table>
-            </div>
-          </div>
-
-          <div class="twoCol">
-            ${buildModeBoardsHTML(cupKey, "doubles")}
           </div>
 
           <div class="card">
@@ -769,8 +759,123 @@
             </div>
           </div>
         </div>
-      `;
-    }
+      </div>
+    `;
+  }
+
+  return `
+    <div class="stack">
+      <div class="card info">
+        <h2>更新情報 <span class="tag">info</span></h2>
+        <div class="infoBox">
+          <div>${cupLabel}｜シングルス｜最新（フィーバー）：<span id="${cupKey}_latestSinglesFever" class="mono"></span></div>
+          <div>${cupLabel}｜シングルス｜最新（クラシック）：<span id="${cupKey}_latestSinglesClassic" class="mono"></span></div>
+          <div>${cupLabel}｜ダブルス｜最新（フィーバー）：<span id="${cupKey}_latestDoublesFever" class="mono"></span></div>
+          <div>${cupLabel}｜ダブルス｜最新（クラシック）：<span id="${cupKey}_latestDoublesClassic" class="mono"></span></div>
+          <div>更新：<span id="${cupKey}_updatedAt" class="mono"></span></div>
+        </div>
+      </div>
+
+      <div class="sectionLabel">シングルス</div>
+
+      <div class="card">
+        <h2>${cupLabel}｜シングルス総合（個人） <span class="tag">top 8</span></h2>
+        <div style="overflow:auto">
+          <table>
+            <thead>
+              <tr>
+                <th>順位</th><th>プレイヤー</th><th class="right">参加</th><th class="right">☆（1位）</th><th class="right">☆（2位）</th>
+              </tr>
+            </thead>
+            <tbody id="${cupKey}_singles_overall"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="twoCol">
+        ${buildModeBoardsHTML(cupKey, "singles")}
+      </div>
+
+      <div class="card">
+        <h2>
+          <span>${cupLabel}｜シングルス総合（全順位）</span>
+          <button id="${cupKey}_singlesFoldBtn" type="button" class="btn">開く</button>
+        </h2>
+
+        <div id="${cupKey}_singlesFoldBody" style="display:none;">
+          <div style="padding:10px 12px; display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+            <input id="${cupKey}_singlesSearch" type="text" placeholder="名前検索"
+              style="flex:1; min-width:220px; padding:10px 12px; border-radius:12px; border:1px solid var(--line); background:rgba(18,24,38,0.65); color:var(--text); outline:none;">
+            <button id="${cupKey}_singlesSearchBtn" type="button" class="btn">ジャンプ</button>
+            <button id="${cupKey}_singlesResetBtn" type="button" class="btn">リセット</button>
+          </div>
+
+          <div class="scrollBox" id="${cupKey}_singlesRankScroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>順位</th><th>プレイヤー</th><th class="right">参加</th><th class="right">☆（1位）</th><th class="right">☆（2位）</th>
+                </tr>
+              </thead>
+              <tbody id="${cupKey}_singlesRankAll"></tbody>
+            </table>
+            <div id="${cupKey}_singlesRankSentinel" style="height:1px;"></div>
+          </div>
+          <div id="${cupKey}_singlesRankHint" class="muted" style="padding:6px 12px; font-size:12px;"></div>
+        </div>
+      </div>
+
+      <div class="sectionLabel">ダブルス</div>
+
+      <div class="card">
+        <h2>${cupLabel}｜ダブルス総合（個人） <span class="tag">top 8</span></h2>
+        <div style="overflow:auto">
+          <table>
+            <thead>
+              <tr>
+                <th>順位</th><th>プレイヤー</th><th class="right">参加</th><th class="right">☆（1位）</th><th class="right">☆（2位）</th>
+              </tr>
+            </thead>
+            <tbody id="${cupKey}_doubles_overall"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="twoCol">
+        ${buildModeBoardsHTML(cupKey, "doubles")}
+      </div>
+
+      <div class="card">
+        <h2>
+          <span>${cupLabel}｜ダブルス総合（全順位）</span>
+          <button id="${cupKey}_doublesFoldBtn" type="button" class="btn">開く</button>
+        </h2>
+
+        <div id="${cupKey}_doublesFoldBody" style="display:none;">
+          <div style="padding:10px 12px; display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+            <input id="${cupKey}_doublesSearch" type="text" placeholder="名前検索"
+              style="flex:1; min-width:220px; padding:10px 12px; border-radius:12px; border:1px solid var(--line); background:rgba(18,24,38,0.65); color:var(--text); outline:none;">
+            <button id="${cupKey}_doublesSearchBtn" type="button" class="btn">ジャンプ</button>
+            <button id="${cupKey}_doublesResetBtn" type="button" class="btn">リセット</button>
+          </div>
+
+          <div class="scrollBox" id="${cupKey}_doublesRankScroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>順位</th><th>プレイヤー</th><th class="right">参加</th><th class="right">☆（1位）</th><th class="right">☆（2位）</th>
+                </tr>
+              </thead>
+              <tbody id="${cupKey}_doublesRankAll"></tbody>
+            </table>
+            <div id="${cupKey}_doublesRankSentinel" style="height:1px;"></div>
+          </div>
+          <div id="${cupKey}_doublesRankHint" class="muted" style="padding:6px 12px; font-size:12px;"></div>
+        </div>
+      </div>
+    </div>
+  `;
+}
 
     function mountCupSections(){
       ["court","racket","character"].forEach(cupKey=>{
